@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PhotoEditingViewController" customModule="SelectiveContrastExtension" customModuleProvider="target">
+            <connections>
+                <outlet property="leftPanel" destination="LQr-e3-uo4" id="9wm-9Q-n7E"/>
+                <outlet property="rightPanel" destination="I8n-ma-gx4" id="kjp-He-TCx"/>
+                <outlet property="view" destination="1" id="2"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="509" height="292"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="I8n-ma-gx4">
+                    <rect key="frame" x="359" y="0.0" width="150" height="292"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="YVK-jl-98f"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="LQr-e3-uo4">
+                    <rect key="frame" x="0.0" y="0.0" width="359" height="292"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jW3-8o-YGn">
+                            <rect key="frame" x="179" y="146" width="0.0" height="0.0"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="uiU-UB-PJM"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="jW3-8o-YGn" firstAttribute="centerX" secondItem="LQr-e3-uo4" secondAttribute="centerX" id="BRS-HB-jB3"/>
+                        <constraint firstItem="jW3-8o-YGn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LQr-e3-uo4" secondAttribute="leading" id="P9H-zn-Ddk"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="jW3-8o-YGn" secondAttribute="bottom" id="ZFN-8O-d1n"/>
+                        <constraint firstItem="jW3-8o-YGn" firstAttribute="centerY" secondItem="LQr-e3-uo4" secondAttribute="centerY" id="fQe-R9-awp"/>
+                        <constraint firstItem="jW3-8o-YGn" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LQr-e3-uo4" secondAttribute="top" id="iEA-Ud-QoT"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jW3-8o-YGn" secondAttribute="trailing" id="zvw-mX-3Y9"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="I8n-ma-gx4" firstAttribute="leading" secondItem="LQr-e3-uo4" secondAttribute="trailing" id="5lz-ro-t2z"/>
+                <constraint firstAttribute="bottom" secondItem="I8n-ma-gx4" secondAttribute="bottom" id="IVn-sc-Cya"/>
+                <constraint firstAttribute="bottom" secondItem="LQr-e3-uo4" secondAttribute="bottom" id="LgX-3D-SER"/>
+                <constraint firstItem="I8n-ma-gx4" firstAttribute="top" secondItem="1" secondAttribute="top" id="SL4-In-Cwd"/>
+                <constraint firstAttribute="trailing" secondItem="I8n-ma-gx4" secondAttribute="trailing" id="ZYf-eT-1lX"/>
+                <constraint firstItem="LQr-e3-uo4" firstAttribute="top" secondItem="1" secondAttribute="top" id="i1w-jJ-W7g"/>
+                <constraint firstItem="LQr-e3-uo4" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="vKF-5v-aaY"/>
+            </constraints>
+            <point key="canvasLocation" x="30.5" y="208"/>
+        </customView>
+    </objects>
+</document>

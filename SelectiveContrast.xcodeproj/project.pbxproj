@@ -10,7 +10,36 @@
 		A6C3F6B71D9703DF00BFE5BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3F6B61D9703DF00BFE5BC /* AppDelegate.swift */; };
 		A6C3F6BB1D9703DF00BFE5BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6C3F6BA1D9703DF00BFE5BC /* Assets.xcassets */; };
 		A6C3F6BE1D9703DF00BFE5BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6C3F6BC1D9703DF00BFE5BC /* Main.storyboard */; };
+		A6C3F6CC1D97066200BFE5BC /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C3F6CB1D97066200BFE5BC /* PhotosUI.framework */; };
+		A6C3F6CE1D97066200BFE5BC /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C3F6CD1D97066200BFE5BC /* Photos.framework */; };
+		A6C3F6D31D97066200BFE5BC /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3F6D21D97066200BFE5BC /* PhotoEditingViewController.swift */; };
+		A6C3F6D61D97066200BFE5BC /* PhotoEditingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C3F6D41D97066200BFE5BC /* PhotoEditingViewController.xib */; };
+		A6C3F6DA1D97066200BFE5BC /* SelectiveContrastExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A6C3F6C91D97066200BFE5BC /* SelectiveContrastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A6C3F6D81D97066200BFE5BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6C3F6AB1D9703DF00BFE5BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6C3F6C81D97066200BFE5BC;
+			remoteInfo = SelectiveContrastExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A6C3F6DE1D97066200BFE5BC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A6C3F6DA1D97066200BFE5BC /* SelectiveContrastExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A6C3F6B31D9703DF00BFE5BC /* SelectiveContrast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelectiveContrast.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -18,6 +47,13 @@
 		A6C3F6BA1D9703DF00BFE5BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6C3F6BD1D9703DF00BFE5BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A6C3F6BF1D9703DF00BFE5BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A6C3F6C91D97066200BFE5BC /* SelectiveContrastExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SelectiveContrastExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6C3F6CB1D97066200BFE5BC /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		A6C3F6CD1D97066200BFE5BC /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		A6C3F6D11D97066200BFE5BC /* SelectiveContrastExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SelectiveContrastExtension.entitlements; sourceTree = "<group>"; };
+		A6C3F6D21D97066200BFE5BC /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
+		A6C3F6D51D97066200BFE5BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PhotoEditingViewController.xib; sourceTree = "<group>"; };
+		A6C3F6D71D97066200BFE5BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +64,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A6C3F6C61D97066200BFE5BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6C3F6CC1D97066200BFE5BC /* PhotosUI.framework in Frameworks */,
+				A6C3F6CE1D97066200BFE5BC /* Photos.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -35,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				A6C3F6B51D9703DF00BFE5BC /* SelectiveContrast */,
+				A6C3F6CF1D97066200BFE5BC /* SelectiveContrastExtension */,
+				A6C3F6CA1D97066200BFE5BC /* Frameworks */,
 				A6C3F6B41D9703DF00BFE5BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				A6C3F6B31D9703DF00BFE5BC /* SelectiveContrast.app */,
+				A6C3F6C91D97066200BFE5BC /* SelectiveContrastExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,6 +106,34 @@
 			path = SelectiveContrast;
 			sourceTree = "<group>";
 		};
+		A6C3F6CA1D97066200BFE5BC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A6C3F6CB1D97066200BFE5BC /* PhotosUI.framework */,
+				A6C3F6CD1D97066200BFE5BC /* Photos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A6C3F6CF1D97066200BFE5BC /* SelectiveContrastExtension */ = {
+			isa = PBXGroup;
+			children = (
+				A6C3F6D21D97066200BFE5BC /* PhotoEditingViewController.swift */,
+				A6C3F6D41D97066200BFE5BC /* PhotoEditingViewController.xib */,
+				A6C3F6D71D97066200BFE5BC /* Info.plist */,
+				A6C3F6D01D97066200BFE5BC /* Supporting Files */,
+			);
+			path = SelectiveContrastExtension;
+			sourceTree = "<group>";
+		};
+		A6C3F6D01D97066200BFE5BC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A6C3F6D11D97066200BFE5BC /* SelectiveContrastExtension.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -68,15 +144,34 @@
 				A6C3F6AF1D9703DF00BFE5BC /* Sources */,
 				A6C3F6B01D9703DF00BFE5BC /* Frameworks */,
 				A6C3F6B11D9703DF00BFE5BC /* Resources */,
+				A6C3F6DE1D97066200BFE5BC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A6C3F6D91D97066200BFE5BC /* PBXTargetDependency */,
 			);
 			name = SelectiveContrast;
 			productName = SelectiveContrast;
 			productReference = A6C3F6B31D9703DF00BFE5BC /* SelectiveContrast.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A6C3F6C81D97066200BFE5BC /* SelectiveContrastExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A6C3F6DB1D97066200BFE5BC /* Build configuration list for PBXNativeTarget "SelectiveContrastExtension" */;
+			buildPhases = (
+				A6C3F6C51D97066200BFE5BC /* Sources */,
+				A6C3F6C61D97066200BFE5BC /* Frameworks */,
+				A6C3F6C71D97066200BFE5BC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SelectiveContrastExtension;
+			productName = SelectiveContrastExtension;
+			productReference = A6C3F6C91D97066200BFE5BC /* SelectiveContrastExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -89,6 +184,10 @@
 				ORGANIZATIONNAME = "Roman Ilchyshyn";
 				TargetAttributes = {
 					A6C3F6B21D9703DF00BFE5BC = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					A6C3F6C81D97066200BFE5BC = {
 						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
 					};
@@ -108,6 +207,7 @@
 			projectRoot = "";
 			targets = (
 				A6C3F6B21D9703DF00BFE5BC /* SelectiveContrast */,
+				A6C3F6C81D97066200BFE5BC /* SelectiveContrastExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -122,6 +222,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A6C3F6C71D97066200BFE5BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6C3F6D61D97066200BFE5BC /* PhotoEditingViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -133,7 +241,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A6C3F6C51D97066200BFE5BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6C3F6D31D97066200BFE5BC /* PhotoEditingViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A6C3F6D91D97066200BFE5BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A6C3F6C81D97066200BFE5BC /* SelectiveContrastExtension */;
+			targetProxy = A6C3F6D81D97066200BFE5BC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A6C3F6BC1D9703DF00BFE5BC /* Main.storyboard */ = {
@@ -142,6 +266,14 @@
 				A6C3F6BD1D9703DF00BFE5BC /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A6C3F6D41D97066200BFE5BC /* PhotoEditingViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A6C3F6D51D97066200BFE5BC /* Base */,
+			);
+			name = PhotoEditingViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -240,6 +372,7 @@
 		A6C3F6C31D9703DF00BFE5BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SelectiveContrast/Info.plist;
@@ -253,12 +386,39 @@
 		A6C3F6C41D9703DF00BFE5BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SelectiveContrast/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.romanilchyshyn.test.SelectiveContrast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		A6C3F6DC1D97066200BFE5BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SelectiveContrastExtension/SelectiveContrastExtension.entitlements;
+				INFOPLIST_FILE = SelectiveContrastExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.romanilchyshyn.test.SelectiveContrast.SelectiveContrastExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		A6C3F6DD1D97066200BFE5BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SelectiveContrastExtension/SelectiveContrastExtension.entitlements;
+				INFOPLIST_FILE = SelectiveContrastExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.romanilchyshyn.test.SelectiveContrast.SelectiveContrastExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -280,6 +440,14 @@
 			buildConfigurations = (
 				A6C3F6C31D9703DF00BFE5BC /* Debug */,
 				A6C3F6C41D9703DF00BFE5BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A6C3F6DB1D97066200BFE5BC /* Build configuration list for PBXNativeTarget "SelectiveContrastExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A6C3F6DC1D97066200BFE5BC /* Debug */,
+				A6C3F6DD1D97066200BFE5BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
