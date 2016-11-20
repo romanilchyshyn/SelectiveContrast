@@ -17,6 +17,8 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     @IBOutlet weak var rightPanel: NSView!
     @IBOutlet weak var leftPanel: NSView!
     
+    @IBOutlet weak var imageView: NSImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,8 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     }
     
     func startContentEditing(with contentEditingInput: PHContentEditingInput, placeholderImage: NSImage) {
+//         imageView.image = contentEditingInput.displaySizeImage!
+        
         // Present content for editing, and keep the contentEditingInput for use when closing the edit session.
         // If you returned true from canHandleAdjustmentData:, contentEditingInput has the original image and adjustment data.
         // If you returned false, the contentEditingInput has past edits "baked in".

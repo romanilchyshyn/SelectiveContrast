@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PhotoEditingViewController" customModule="SelectiveContrastExtension" customModuleProvider="target">
             <connections>
+                <outlet property="imageView" destination="jW3-8o-YGn" id="CMM-1K-sM7"/>
                 <outlet property="leftPanel" destination="LQr-e3-uo4" id="9wm-9Q-n7E"/>
                 <outlet property="rightPanel" destination="I8n-ma-gx4" id="kjp-He-TCx"/>
                 <outlet property="view" destination="1" id="2"/>
@@ -27,17 +29,16 @@
                     <rect key="frame" x="0.0" y="0.0" width="359" height="292"/>
                     <subviews>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jW3-8o-YGn">
-                            <rect key="frame" x="179" y="146" width="0.0" height="0.0"/>
+                            <rect key="frame" x="0.0" y="0.0" width="359" height="292"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="uiU-UB-PJM"/>
                         </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="jW3-8o-YGn" firstAttribute="centerX" secondItem="LQr-e3-uo4" secondAttribute="centerX" id="BRS-HB-jB3"/>
-                        <constraint firstItem="jW3-8o-YGn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LQr-e3-uo4" secondAttribute="leading" id="P9H-zn-Ddk"/>
-                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="jW3-8o-YGn" secondAttribute="bottom" id="ZFN-8O-d1n"/>
+                        <constraint firstItem="jW3-8o-YGn" firstAttribute="leading" secondItem="LQr-e3-uo4" secondAttribute="leading" id="P9H-zn-Ddk"/>
+                        <constraint firstAttribute="bottom" secondItem="jW3-8o-YGn" secondAttribute="bottom" id="ZFN-8O-d1n"/>
                         <constraint firstItem="jW3-8o-YGn" firstAttribute="centerY" secondItem="LQr-e3-uo4" secondAttribute="centerY" id="fQe-R9-awp"/>
-                        <constraint firstItem="jW3-8o-YGn" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LQr-e3-uo4" secondAttribute="top" id="iEA-Ud-QoT"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jW3-8o-YGn" secondAttribute="trailing" id="zvw-mX-3Y9"/>
+                        <constraint firstItem="jW3-8o-YGn" firstAttribute="top" secondItem="LQr-e3-uo4" secondAttribute="top" id="iEA-Ud-QoT"/>
+                        <constraint firstAttribute="trailing" secondItem="jW3-8o-YGn" secondAttribute="trailing" id="zvw-mX-3Y9"/>
                     </constraints>
                 </customView>
             </subviews>
@@ -50,7 +51,7 @@
                 <constraint firstItem="LQr-e3-uo4" firstAttribute="top" secondItem="1" secondAttribute="top" id="i1w-jJ-W7g"/>
                 <constraint firstItem="LQr-e3-uo4" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="vKF-5v-aaY"/>
             </constraints>
-            <point key="canvasLocation" x="30.5" y="208"/>
+            <point key="canvasLocation" x="-318" y="216"/>
         </customView>
     </objects>
 </document>
