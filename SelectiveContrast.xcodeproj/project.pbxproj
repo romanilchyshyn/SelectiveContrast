@@ -403,6 +403,7 @@
 				CODE_SIGN_ENTITLEMENTS = SelectiveContrastExtension/SelectiveContrastExtension.entitlements;
 				INFOPLIST_FILE = SelectiveContrastExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.romanilchyshyn.test.SelectiveContrast.SelectiveContrastExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -416,6 +417,7 @@
 				CODE_SIGN_ENTITLEMENTS = SelectiveContrastExtension/SelectiveContrastExtension.entitlements;
 				INFOPLIST_FILE = SelectiveContrastExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.romanilchyshyn.test.SelectiveContrast.SelectiveContrastExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -442,6 +444,7 @@
 				A6C3F6C41D9703DF00BFE5BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A6C3F6DB1D97066200BFE5BC /* Build configuration list for PBXNativeTarget "SelectiveContrastExtension" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +453,7 @@
 				A6C3F6DD1D97066200BFE5BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,8 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PhotoEditingViewController" customModule="SelectiveContrastExtension" customModuleProvider="target">
             <connections>
-                <outlet property="imageView" destination="jW3-8o-YGn" id="CMM-1K-sM7"/>
+                <outlet property="inputImageView" destination="6hC-VF-ntD" id="ufB-0O-RMg"/>
                 <outlet property="leftPanel" destination="LQr-e3-uo4" id="9wm-9Q-n7E"/>
+                <outlet property="outputImageView" destination="HrI-h7-sWC" id="Ngd-9m-gCo"/>
                 <outlet property="rightPanel" destination="I8n-ma-gx4" id="kjp-He-TCx"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
@@ -17,28 +18,33 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="509" height="292"/>
+            <rect key="frame" x="0.0" y="0.0" width="1039" height="649"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="I8n-ma-gx4">
-                    <rect key="frame" x="359" y="0.0" width="150" height="292"/>
+                    <rect key="frame" x="839" y="0.0" width="200" height="649"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="150" id="YVK-jl-98f"/>
+                        <constraint firstAttribute="width" constant="200" id="YVK-jl-98f"/>
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="LQr-e3-uo4">
-                    <rect key="frame" x="0.0" y="0.0" width="359" height="292"/>
+                    <rect key="frame" x="0.0" y="0.0" width="839" height="649"/>
                     <subviews>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jW3-8o-YGn">
-                            <rect key="frame" x="0.0" y="0.0" width="359" height="292"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="uiU-UB-PJM"/>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="HrI-h7-sWC">
+                            <rect key="frame" x="424" y="309" width="407" height="32"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSColorPanel" id="bo8-H4-GWP"/>
+                        </imageView>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6hC-VF-ntD">
+                            <rect key="frame" x="8" y="309" width="408" height="32"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSFontPanel" id="ocw-9b-LSr"/>
                         </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="jW3-8o-YGn" firstAttribute="leading" secondItem="LQr-e3-uo4" secondAttribute="leading" id="P9H-zn-Ddk"/>
-                        <constraint firstAttribute="bottom" secondItem="jW3-8o-YGn" secondAttribute="bottom" id="ZFN-8O-d1n"/>
-                        <constraint firstItem="jW3-8o-YGn" firstAttribute="centerY" secondItem="LQr-e3-uo4" secondAttribute="centerY" id="fQe-R9-awp"/>
-                        <constraint firstItem="jW3-8o-YGn" firstAttribute="top" secondItem="LQr-e3-uo4" secondAttribute="top" id="iEA-Ud-QoT"/>
-                        <constraint firstAttribute="trailing" secondItem="jW3-8o-YGn" secondAttribute="trailing" id="zvw-mX-3Y9"/>
+                        <constraint firstItem="HrI-h7-sWC" firstAttribute="centerY" secondItem="LQr-e3-uo4" secondAttribute="centerY" id="BQE-EC-dVY"/>
+                        <constraint firstItem="6hC-VF-ntD" firstAttribute="width" secondItem="HrI-h7-sWC" secondAttribute="width" id="cQ6-8x-END"/>
+                        <constraint firstAttribute="trailing" secondItem="HrI-h7-sWC" secondAttribute="trailing" constant="8" id="hu2-si-lPv"/>
+                        <constraint firstItem="6hC-VF-ntD" firstAttribute="leading" secondItem="LQr-e3-uo4" secondAttribute="leading" constant="8" id="pbl-SQ-Glf"/>
+                        <constraint firstItem="HrI-h7-sWC" firstAttribute="leading" secondItem="6hC-VF-ntD" secondAttribute="trailing" constant="8" id="tEx-4t-jvH"/>
+                        <constraint firstItem="6hC-VF-ntD" firstAttribute="centerY" secondItem="LQr-e3-uo4" secondAttribute="centerY" id="tGN-nM-7Ud"/>
                     </constraints>
                 </customView>
             </subviews>
@@ -51,7 +57,11 @@
                 <constraint firstItem="LQr-e3-uo4" firstAttribute="top" secondItem="1" secondAttribute="top" id="i1w-jJ-W7g"/>
                 <constraint firstItem="LQr-e3-uo4" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="vKF-5v-aaY"/>
             </constraints>
-            <point key="canvasLocation" x="-318" y="216"/>
+            <point key="canvasLocation" x="-176" y="257"/>
         </customView>
     </objects>
+    <resources>
+        <image name="NSColorPanel" width="32" height="32"/>
+        <image name="NSFontPanel" width="32" height="32"/>
+    </resources>
 </document>
