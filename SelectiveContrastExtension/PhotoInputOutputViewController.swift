@@ -10,9 +10,11 @@ import Cocoa
 
 class PhotoInputOutputViewController: NSViewController {
     
+     // MARK: Properties
     public var inputImage: NSImage? { didSet { inputImageView.image = inputImage } }
     public var outputImage: NSImage? { didSet { outputImageView.image = outputImage } }
     
+    // MARK: IBOutlets
     @IBOutlet weak var inputImageView: NSImageView!
     @IBOutlet weak var outputImageView: NSImageView!
     

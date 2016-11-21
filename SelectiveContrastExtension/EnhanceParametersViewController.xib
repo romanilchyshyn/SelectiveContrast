@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="EnhanceParametersViewController" customModule="SelectiveContrastExtension" customModuleProvider="target">
+            <connections>
+                <outlet property="enhanceDarkRadioButton" destination="ZYM-ZA-6hX" id="KZQ-kz-rMG"/>
+                <outlet property="enhanceGlobalRadioButton" destination="uZ1-D0-IsX" id="53C-we-cz1"/>
+                <outlet property="sliderA" destination="ldF-wu-JCf" id="Udr-ej-1Uk"/>
+                <outlet property="sliderAlpha" destination="l3W-8d-UkG" id="4yu-nh-1Fg"/>
+                <outlet property="sliderT" destination="O6w-kL-Ysi" id="nmU-ck-OcU"/>
+                <outlet property="textFieldA" destination="uzR-xj-72n" id="lC4-VR-bwH"/>
+                <outlet property="textFieldAlpha" destination="EAd-PH-VDe" id="CV5-hb-I2r"/>
+                <outlet property="textFieldT" destination="Hhr-Df-SKU" id="MFa-Qb-lbk"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="344" height="597"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="VAl-he-Snn">
+                    <rect key="frame" x="0.0" y="299" width="344" height="298"/>
+                    <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Shr-RY-ycT">
+                            <rect key="frame" x="0.0" y="0.0" width="172" height="298"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hhr-Df-SKU">
+                                    <rect key="frame" x="134" y="20" width="21" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="50" id="l4S-2D-a9A">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <slider horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="O6w-kL-Ysi">
+                                    <rect key="frame" x="135" y="42" width="19" height="155"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="150" id="WWF-KS-ane"/>
+                                    </constraints>
+                                    <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="JWv-VO-EjO"/>
+                                </slider>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="O6w-kL-Ysi" secondAttribute="trailing" constant="20" id="0Xh-Gz-58b"/>
+                                <constraint firstItem="Hhr-Df-SKU" firstAttribute="top" secondItem="O6w-kL-Ysi" secondAttribute="bottom" constant="8" id="4dD-dy-Ecb"/>
+                                <constraint firstItem="Hhr-Df-SKU" firstAttribute="centerX" secondItem="O6w-kL-Ysi" secondAttribute="centerX" id="IXD-ci-GjU"/>
+                                <constraint firstAttribute="bottom" secondItem="Hhr-Df-SKU" secondAttribute="bottom" constant="20" id="i6l-mS-L5t"/>
+                            </constraints>
+                        </customView>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="ZYM-ZA-6hX">
+                            <rect key="frame" x="120" y="214" width="105" height="18"/>
+                            <buttonCell key="cell" type="radio" title="Enhance dark" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="a9P-aR-0C7">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="hf0-MZ-DHe">
+                            <rect key="frame" x="172" y="0.0" width="172" height="298"/>
+                            <subviews>
+                                <slider horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ldF-wu-JCf">
+                                    <rect key="frame" x="18" y="42" width="19" height="155"/>
+                                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="NQl-3K-Ctn"/>
+                                </slider>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uzR-xj-72n">
+                                    <rect key="frame" x="16" y="20" width="23" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2.5" id="9yw-pN-lAy">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="uzR-xj-72n" firstAttribute="centerX" secondItem="ldF-wu-JCf" secondAttribute="centerX" id="Ufn-tI-Pdw"/>
+                                <constraint firstItem="ldF-wu-JCf" firstAttribute="leading" secondItem="hf0-MZ-DHe" secondAttribute="leading" constant="20" id="dlG-n8-Z0b"/>
+                            </constraints>
+                        </customView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="hf0-MZ-DHe" secondAttribute="trailing" id="642-S0-Dh1"/>
+                        <constraint firstItem="Shr-RY-ycT" firstAttribute="leading" secondItem="VAl-he-Snn" secondAttribute="leading" id="83f-mr-b0E"/>
+                        <constraint firstItem="ZYM-ZA-6hX" firstAttribute="centerX" secondItem="VAl-he-Snn" secondAttribute="centerX" id="AuW-KS-e1f"/>
+                        <constraint firstItem="hf0-MZ-DHe" firstAttribute="leading" secondItem="Shr-RY-ycT" secondAttribute="trailing" id="Grk-hW-e7c"/>
+                        <constraint firstAttribute="bottom" secondItem="hf0-MZ-DHe" secondAttribute="bottom" id="PoF-r8-d5B"/>
+                        <constraint firstItem="O6w-kL-Ysi" firstAttribute="top" secondItem="ZYM-ZA-6hX" secondAttribute="bottom" constant="20" id="Q5M-9J-CC8"/>
+                        <constraint firstItem="O6w-kL-Ysi" firstAttribute="bottom" secondItem="ldF-wu-JCf" secondAttribute="bottom" id="Yg0-Rm-Wnk"/>
+                        <constraint firstItem="hf0-MZ-DHe" firstAttribute="top" secondItem="VAl-he-Snn" secondAttribute="top" id="Ys0-iP-1bM"/>
+                        <constraint firstItem="uzR-xj-72n" firstAttribute="baseline" secondItem="Hhr-Df-SKU" secondAttribute="baseline" id="a8U-qn-s97"/>
+                        <constraint firstAttribute="bottom" secondItem="Shr-RY-ycT" secondAttribute="bottom" id="bP7-jL-U0L"/>
+                        <constraint firstItem="Shr-RY-ycT" firstAttribute="width" secondItem="hf0-MZ-DHe" secondAttribute="width" id="eDb-3W-pQI"/>
+                        <constraint firstItem="Shr-RY-ycT" firstAttribute="top" secondItem="VAl-he-Snn" secondAttribute="top" id="eEI-AZ-N05"/>
+                        <constraint firstItem="ldF-wu-JCf" firstAttribute="height" secondItem="O6w-kL-Ysi" secondAttribute="height" id="k7O-Bu-ige"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="T3x-g7-5gN">
+                    <rect key="frame" x="0.0" y="0.0" width="344" height="299"/>
+                    <subviews>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="uZ1-D0-IsX">
+                            <rect key="frame" x="115" y="262" width="115" height="18"/>
+                            <buttonCell key="cell" type="radio" title="Enhance global" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Wi2-oA-kJt">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EAd-PH-VDe">
+                            <rect key="frame" x="161" y="68" width="24" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0.8" id="iq4-e5-2Ev">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <slider horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l3W-8d-UkG">
+                            <rect key="frame" x="163" y="90" width="19" height="155"/>
+                            <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="UlC-YC-VY2"/>
+                        </slider>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="EAd-PH-VDe" firstAttribute="centerX" secondItem="l3W-8d-UkG" secondAttribute="centerX" id="2ej-Ad-KWY"/>
+                        <constraint firstItem="EAd-PH-VDe" firstAttribute="top" secondItem="l3W-8d-UkG" secondAttribute="bottom" constant="8" id="9Bw-UK-gQK"/>
+                        <constraint firstItem="l3W-8d-UkG" firstAttribute="centerX" secondItem="T3x-g7-5gN" secondAttribute="centerX" id="Tui-ka-rJT"/>
+                        <constraint firstItem="uZ1-D0-IsX" firstAttribute="top" secondItem="T3x-g7-5gN" secondAttribute="top" constant="20" id="UCX-CY-dkh"/>
+                        <constraint firstItem="uZ1-D0-IsX" firstAttribute="centerX" secondItem="T3x-g7-5gN" secondAttribute="centerX" id="cus-dg-sBg"/>
+                        <constraint firstItem="l3W-8d-UkG" firstAttribute="top" secondItem="uZ1-D0-IsX" secondAttribute="bottom" constant="20" id="xDU-hC-Nvi"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="T3x-g7-5gN" secondAttribute="trailing" id="H5w-ma-4ue"/>
+                <constraint firstItem="l3W-8d-UkG" firstAttribute="height" secondItem="O6w-kL-Ysi" secondAttribute="height" id="IfM-g1-7Xu"/>
+                <constraint firstItem="T3x-g7-5gN" firstAttribute="top" secondItem="VAl-he-Snn" secondAttribute="bottom" id="Iy6-30-JRY"/>
+                <constraint firstAttribute="trailing" secondItem="VAl-he-Snn" secondAttribute="trailing" id="Oeh-2p-zD8"/>
+                <constraint firstItem="VAl-he-Snn" firstAttribute="height" secondItem="T3x-g7-5gN" secondAttribute="height" id="Sxp-oa-ahW"/>
+                <constraint firstItem="VAl-he-Snn" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="cFV-kt-1gn"/>
+                <constraint firstItem="VAl-he-Snn" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="khj-FZ-pCy"/>
+                <constraint firstAttribute="bottom" secondItem="T3x-g7-5gN" secondAttribute="bottom" id="sPS-md-uNi"/>
+                <constraint firstItem="T3x-g7-5gN" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="vSq-oh-ZfY"/>
+            </constraints>
+            <point key="canvasLocation" x="-261" y="47"/>
+        </customView>
+    </objects>
+</document>

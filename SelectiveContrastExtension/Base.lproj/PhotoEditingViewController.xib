@@ -8,8 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PhotoEditingViewController" customModule="SelectiveContrastExtension" customModuleProvider="target">
             <connections>
-                <outlet property="leftPanel" destination="LQr-e3-uo4" id="9wm-9Q-n7E"/>
-                <outlet property="rightPanel" destination="I8n-ma-gx4" id="kjp-He-TCx"/>
+                <outlet property="contentPanel" destination="LQr-e3-uo4" id="EG8-40-ch1"/>
+                <outlet property="parametersPanel" destination="I8n-ma-gx4" id="ebB-C5-z6R"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>

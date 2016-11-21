@@ -16,6 +16,7 @@ class PhotoEditingViewController: NSViewController {
 
     // MARK: Properties
     let inputOutputViewController = PhotoInputOutputViewController()
+    let parametersViewController = EnhanceParametersViewController()
     
     fileprivate var contentEditingInput: PHContentEditingInput? { didSet { inputImage = contentEditingInput?.displaySizeImage } }
     
@@ -27,28 +28,19 @@ class PhotoEditingViewController: NSViewController {
     }
     
     // MARK: IBOutlets
-    @IBOutlet weak var rightPanel: NSView!
-    @IBOutlet weak var leftPanel: NSView!
+    @IBOutlet weak var contentPanel: NSView!
+    @IBOutlet weak var parametersPanel: NSView!
+    
+    // MARK: View controller lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         os_log("viewDidLoad()", type: .info)
         
-        addInputOutputViewController()
+        contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
+        parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
     }
     
-    func addInputOutputViewController() {
-        leftPanel.addSubview(inputOutputViewController.view)
-        inputOutputViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            leftPanel.topAnchor.constraint(equalTo: inputOutputViewController.view.topAnchor),
-            leftPanel.bottomAnchor.constraint(equalTo: inputOutputViewController.view.bottomAnchor),
-            leftPanel.leadingAnchor.constraint(equalTo: inputOutputViewController.view.leadingAnchor),
-            leftPanel.trailingAnchor.constraint(equalTo: inputOutputViewController.view.trailingAnchor)
-        ])
-    }
-
 }
 
 extension PhotoEditingViewController: PHContentEditingController {
@@ -89,3 +81,18 @@ extension PhotoEditingViewController: PHContentEditingController {
     }
 }
 
+extension NSView {
+    
+    func addSubviewConstraintedToAnchors(_ view: NSView) {
+        addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: self.topAnchor),
+            view.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+    }
+    
+}

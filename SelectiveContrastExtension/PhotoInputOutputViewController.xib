@@ -23,7 +23,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="327" height="451"/>
                     <subviews>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="o2x-ZD-YcX">
-                            <rect key="frame" x="147" y="210" width="32" height="32"/>
+                            <rect key="frame" x="287" y="210" width="32" height="32"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSAdvanced" id="kyh-TG-OJV"/>
                         </imageView>
                     </subviews>
@@ -31,16 +31,15 @@
                         <constraint firstItem="o2x-ZD-YcX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JNV-or-FFQ" secondAttribute="top" constant="20" symbolic="YES" id="KQS-eD-ziP"/>
                         <constraint firstItem="o2x-ZD-YcX" firstAttribute="centerY" secondItem="JNV-or-FFQ" secondAttribute="centerY" id="TAn-KN-AGm"/>
                         <constraint firstItem="o2x-ZD-YcX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JNV-or-FFQ" secondAttribute="leading" constant="20" symbolic="YES" id="XNP-Yx-6yp"/>
-                        <constraint firstItem="o2x-ZD-YcX" firstAttribute="centerX" secondItem="JNV-or-FFQ" secondAttribute="centerX" id="XqO-ye-U4X"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="o2x-ZD-YcX" secondAttribute="bottom" constant="20" symbolic="YES" id="ex5-Qq-ERT"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="o2x-ZD-YcX" secondAttribute="trailing" constant="20" symbolic="YES" id="s6j-59-yna"/>
+                        <constraint firstAttribute="trailing" secondItem="o2x-ZD-YcX" secondAttribute="trailing" constant="8" id="s6j-59-yna"/>
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="iQ2-L4-NH0">
                     <rect key="frame" x="327" y="0.0" width="326" height="451"/>
                     <subviews>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ipn-XE-FBr">
-                            <rect key="frame" x="147" y="210" width="32" height="32"/>
+                            <rect key="frame" x="8" y="210" width="32" height="32"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSEveryone" id="Bk6-ah-rJS"/>
                         </imageView>
                     </subviews>
@@ -48,9 +47,8 @@
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ipn-XE-FBr" secondAttribute="trailing" constant="20" symbolic="YES" id="1Sa-mS-hUS"/>
                         <constraint firstItem="ipn-XE-FBr" firstAttribute="centerY" secondItem="iQ2-L4-NH0" secondAttribute="centerY" id="34b-Ym-gTD"/>
                         <constraint firstItem="ipn-XE-FBr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iQ2-L4-NH0" secondAttribute="top" constant="20" symbolic="YES" id="XLv-T7-5BP"/>
-                        <constraint firstItem="ipn-XE-FBr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iQ2-L4-NH0" secondAttribute="leading" constant="20" symbolic="YES" id="gsd-1C-97V"/>
+                        <constraint firstItem="ipn-XE-FBr" firstAttribute="leading" secondItem="iQ2-L4-NH0" secondAttribute="leading" constant="8" id="gsd-1C-97V"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ipn-XE-FBr" secondAttribute="bottom" constant="20" symbolic="YES" id="iDJ-H8-7FN"/>
-                        <constraint firstItem="ipn-XE-FBr" firstAttribute="centerX" secondItem="iQ2-L4-NH0" secondAttribute="centerX" id="t6N-yS-Tnt"/>
                     </constraints>
                 </customView>
             </subviews>
