@@ -8,9 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PhotoEditingViewController" customModule="SelectiveContrastExtension" customModuleProvider="target">
             <connections>
-                <outlet property="inputImageView" destination="6hC-VF-ntD" id="ufB-0O-RMg"/>
                 <outlet property="leftPanel" destination="LQr-e3-uo4" id="9wm-9Q-n7E"/>
-                <outlet property="outputImageView" destination="HrI-h7-sWC" id="Ngd-9m-gCo"/>
                 <outlet property="rightPanel" destination="I8n-ma-gx4" id="kjp-He-TCx"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
@@ -28,24 +26,6 @@
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="LQr-e3-uo4">
                     <rect key="frame" x="0.0" y="0.0" width="839" height="649"/>
-                    <subviews>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="HrI-h7-sWC">
-                            <rect key="frame" x="424" y="309" width="407" height="32"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSColorPanel" id="bo8-H4-GWP"/>
-                        </imageView>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6hC-VF-ntD">
-                            <rect key="frame" x="8" y="309" width="408" height="32"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSFontPanel" id="ocw-9b-LSr"/>
-                        </imageView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="HrI-h7-sWC" firstAttribute="centerY" secondItem="LQr-e3-uo4" secondAttribute="centerY" id="BQE-EC-dVY"/>
-                        <constraint firstItem="6hC-VF-ntD" firstAttribute="width" secondItem="HrI-h7-sWC" secondAttribute="width" id="cQ6-8x-END"/>
-                        <constraint firstAttribute="trailing" secondItem="HrI-h7-sWC" secondAttribute="trailing" constant="8" id="hu2-si-lPv"/>
-                        <constraint firstItem="6hC-VF-ntD" firstAttribute="leading" secondItem="LQr-e3-uo4" secondAttribute="leading" constant="8" id="pbl-SQ-Glf"/>
-                        <constraint firstItem="HrI-h7-sWC" firstAttribute="leading" secondItem="6hC-VF-ntD" secondAttribute="trailing" constant="8" id="tEx-4t-jvH"/>
-                        <constraint firstItem="6hC-VF-ntD" firstAttribute="centerY" secondItem="LQr-e3-uo4" secondAttribute="centerY" id="tGN-nM-7Ud"/>
-                    </constraints>
                 </customView>
             </subviews>
             <constraints>
@@ -57,11 +37,7 @@
                 <constraint firstItem="LQr-e3-uo4" firstAttribute="top" secondItem="1" secondAttribute="top" id="i1w-jJ-W7g"/>
                 <constraint firstItem="LQr-e3-uo4" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="vKF-5v-aaY"/>
             </constraints>
-            <point key="canvasLocation" x="-176" y="257"/>
+            <point key="canvasLocation" x="-61" y="233"/>
         </customView>
     </objects>
-    <resources>
-        <image name="NSColorPanel" width="32" height="32"/>
-        <image name="NSFontPanel" width="32" height="32"/>
-    </resources>
 </document>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A69891641DE32EAF001A4055 /* PhotoInputOutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69891631DE32EAF001A4055 /* PhotoInputOutputViewController.swift */; };
+		A69891661DE32ED8001A4055 /* PhotoInputOutputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A69891651DE32ED8001A4055 /* PhotoInputOutputViewController.xib */; };
 		A6C3F6B71D9703DF00BFE5BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3F6B61D9703DF00BFE5BC /* AppDelegate.swift */; };
 		A6C3F6BB1D9703DF00BFE5BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6C3F6BA1D9703DF00BFE5BC /* Assets.xcassets */; };
 		A6C3F6BE1D9703DF00BFE5BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6C3F6BC1D9703DF00BFE5BC /* Main.storyboard */; };
@@ -42,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A69891631DE32EAF001A4055 /* PhotoInputOutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoInputOutputViewController.swift; sourceTree = "<group>"; };
+		A69891651DE32ED8001A4055 /* PhotoInputOutputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoInputOutputViewController.xib; sourceTree = "<group>"; };
 		A6C3F6B31D9703DF00BFE5BC /* SelectiveContrast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelectiveContrast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6C3F6B61D9703DF00BFE5BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6C3F6BA1D9703DF00BFE5BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 			children = (
 				A6C3F6D21D97066200BFE5BC /* PhotoEditingViewController.swift */,
 				A6C3F6D41D97066200BFE5BC /* PhotoEditingViewController.xib */,
+				A69891631DE32EAF001A4055 /* PhotoInputOutputViewController.swift */,
+				A69891651DE32ED8001A4055 /* PhotoInputOutputViewController.xib */,
 				A6C3F6D71D97066200BFE5BC /* Info.plist */,
 				A6C3F6D01D97066200BFE5BC /* Supporting Files */,
 			);
@@ -227,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6C3F6D61D97066200BFE5BC /* PhotoEditingViewController.xib in Resources */,
+				A69891661DE32ED8001A4055 /* PhotoInputOutputViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6C3F6D31D97066200BFE5BC /* PhotoEditingViewController.swift in Sources */,
+				A69891641DE32EAF001A4055 /* PhotoInputOutputViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
