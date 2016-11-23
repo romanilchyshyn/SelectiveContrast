@@ -14,6 +14,8 @@ import os.log
 
 import RxSwift
 
+import SelectiveContrastKit
+
 class PhotoEditingViewController: NSViewController {
 
     // MARK: Properties
@@ -25,7 +27,13 @@ class PhotoEditingViewController: NSViewController {
     fileprivate var inputImage: NSImage? {
         didSet {
             inputOutputViewController.inputImage = inputImage
-            inputOutputViewController.outputImage = inputImage // TODO: Need calculate output with default values.
+            outputImage = inputImage // TODO: Need calculate output with default values.
+        }
+    }
+    
+    fileprivate var outputImage: NSImage? {
+        didSet {
+            inputOutputViewController.outputImage = outputImage
         }
     }
     
@@ -42,8 +50,15 @@ class PhotoEditingViewController: NSViewController {
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
         
-        parametersViewController.enhance.asObservable().throttle(0.5, scheduler: MainScheduler.instance).subscribe { (wrapedEnhance) in
+        parametersViewController.enhance.asObservable().subscribe { [unowned self] (wrapedEnhance) in
             print(wrapedEnhance.element)
+            
+            
+            guard let inImage = self.inputImage else { return }
+            guard let e = wrapedEnhance.element else { return }
+            guard let alpha = e.alpha else { return }
+            
+            self.outputImage = SelectiveContrast.enhanceGlobal(inImage, alpha: alpha)
         }
     }
     
