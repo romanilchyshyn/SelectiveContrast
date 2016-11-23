@@ -12,6 +12,8 @@ import PhotosUI
 
 import os.log
 
+import RxSwift
+
 class PhotoEditingViewController: NSViewController {
 
     // MARK: Properties
@@ -39,6 +41,10 @@ class PhotoEditingViewController: NSViewController {
         
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
+        
+        parametersViewController.enhance.asObservable().throttle(0.5, scheduler: MainScheduler.instance).subscribe { (wrapedEnhance) in
+            print(wrapedEnhance.element)
+        }
     }
     
 }

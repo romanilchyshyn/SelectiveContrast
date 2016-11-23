@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6078C2B1DE3995100F6DD78 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6078C291DE3995100F6DD78 /* RxCocoa.framework */; };
+		A6078C2C1DE3995100F6DD78 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6078C2A1DE3995100F6DD78 /* RxSwift.framework */; };
 		A69891641DE32EAF001A4055 /* PhotoInputOutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69891631DE32EAF001A4055 /* PhotoInputOutputViewController.swift */; };
 		A69891661DE32ED8001A4055 /* PhotoInputOutputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A69891651DE32ED8001A4055 /* PhotoInputOutputViewController.xib */; };
 		A69891691DE33E3F001A4055 /* EnhanceParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69891671DE33E3F001A4055 /* EnhanceParametersViewController.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A6078C291DE3995100F6DD78 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
+		A6078C2A1DE3995100F6DD78 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		A69891631DE32EAF001A4055 /* PhotoInputOutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoInputOutputViewController.swift; sourceTree = "<group>"; };
 		A69891651DE32ED8001A4055 /* PhotoInputOutputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoInputOutputViewController.xib; sourceTree = "<group>"; };
 		A69891671DE33E3F001A4055 /* EnhanceParametersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnhanceParametersViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6078C2B1DE3995100F6DD78 /* RxCocoa.framework in Frameworks */,
+				A6078C2C1DE3995100F6DD78 /* RxSwift.framework in Frameworks */,
 				A6C3F6CC1D97066200BFE5BC /* PhotosUI.framework in Frameworks */,
 				A6C3F6CE1D97066200BFE5BC /* Photos.framework in Frameworks */,
 			);
@@ -119,6 +125,8 @@
 		A6C3F6CA1D97066200BFE5BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A6078C291DE3995100F6DD78 /* RxCocoa.framework */,
+				A6078C2A1DE3995100F6DD78 /* RxSwift.framework */,
 				A6C3F6CB1D97066200BFE5BC /* PhotosUI.framework */,
 				A6C3F6CD1D97066200BFE5BC /* Photos.framework */,
 			);
@@ -178,6 +186,7 @@
 				A6C3F6C51D97066200BFE5BC /* Sources */,
 				A6C3F6C61D97066200BFE5BC /* Frameworks */,
 				A6C3F6C71D97066200BFE5BC /* Resources */,
+				A6078C2D1DE39C6800F6DD78 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -248,6 +257,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A6078C2D1DE39C6800F6DD78 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A6C3F6AF1D9703DF00BFE5BC /* Sources */ = {
@@ -421,6 +448,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SelectiveContrastExtension/SelectiveContrastExtension.entitlements;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = SelectiveContrastExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -435,6 +466,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SelectiveContrastExtension/SelectiveContrastExtension.entitlements;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = SelectiveContrastExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
