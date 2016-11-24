@@ -31,9 +31,13 @@ public class SelectiveContrast {
         let inImageCG = image.cgImage(forProposedRect: nil, context: nil, hints: nil)!
         
         var inBuffer: vImage_Buffer = inImageCG.vImageBuffer
+        defer { free(inBuffer.data) }
+        
         var format = inImageCG.vImageFormat
         
         var outBuffer: vImage_Buffer = vImage_Buffer.init()
+        defer { free(outBuffer.data) }
+        
         vImageBuffer_Init(&outBuffer, vImagePixelCount(inImageCG.height), vImagePixelCount(inImageCG.width), format.bitsPerPixel, vImage_Flags(kvImageNoFlags))
         
         vImageBoxConvolve_ARGB8888(&inBuffer,
@@ -46,8 +50,6 @@ public class SelectiveContrast {
                                    nil,
                                    vImage_Flags(kvImageCopyInPlace))
         
-        free(inBuffer.data)
-        
         let outImageCG: CGImage = vImageCreateCGImageFromBuffer(&outBuffer,
                                                                 &format,
                                                                 nil,
@@ -55,36 +57,10 @@ public class SelectiveContrast {
                                                                 vImage_Flags(kvImageNoFlags),
                                                                 nil).takeRetainedValue()
         
-        free(outBuffer.data)
-        
         let outputImage = NSImage.init(cgImage: outImageCG, size: NSZeroSize)
         
         return outputImage
     }
 }
 
-extension CGImage {
-    
-    // You are responsible for releasing the memory pointed to by buffer->data back to the system when you are done with it using free().
-    var vImageBuffer: vImage_Buffer {
-        var format = self.vImageFormat
-        
-        var imageBuffer = vImage_Buffer()
-        vImageBuffer_InitWithCGImage(&imageBuffer,
-                                     &format,
-                                     nil,
-                                     self,
-                                     vImage_Flags(kvImagePrintDiagnosticsToConsole))
-        return imageBuffer
-    }
-    
-    var vImageFormat: vImage_CGImageFormat {
-        return vImage_CGImageFormat.init(bitsPerComponent: UInt32(self.bitsPerComponent),
-                                         bitsPerPixel: UInt32(self.bitsPerPixel),
-                                         colorSpace: Unmanaged.passUnretained(self.colorSpace!),
-                                         bitmapInfo: self.bitmapInfo,
-                                         version: 0,
-                                         decode: nil,
-                                         renderingIntent: .defaultIntent)
-    }
-}
+

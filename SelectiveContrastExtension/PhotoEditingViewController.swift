@@ -27,7 +27,7 @@ class PhotoEditingViewController: NSViewController {
     fileprivate var inputImage: NSImage? {
         didSet {
             inputOutputViewController.inputImage = inputImage
-            outputImage = inputImage // TODO: Need calculate output with default values.
+            outputImage = inputImage
         }
     }
     
@@ -36,6 +36,8 @@ class PhotoEditingViewController: NSViewController {
             inputOutputViewController.outputImage = outputImage
         }
     }
+    
+    let disposeBag = DisposeBag()
     
     // MARK: IBOutlets
     @IBOutlet weak var contentPanel: NSView!
@@ -50,15 +52,45 @@ class PhotoEditingViewController: NSViewController {
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
         
-        parametersViewController.enhance.asObservable().subscribe { [unowned self] (wrapedEnhance) in
-            print(wrapedEnhance.element)
-            
+        parametersViewController.enhance.asObservable()/*.throttle(0.5, scheduler: MainScheduler.instance)*/.subscribe { (wrapedEnhance) in
+            print(wrapedEnhance.element ?? "")
             
             guard let inImage = self.inputImage else { return }
             guard let e = wrapedEnhance.element else { return }
             guard let alpha = e.alpha else { return }
             
             self.outputImage = SelectiveContrast.enhanceGlobal(inImage, alpha: alpha)
+        } .addDisposableTo(disposeBag)
+    }
+    
+    // MARK: Helpers
+    
+    func processImage(to output: PHContentEditingOutput, completionHandler: ((PHContentEditingOutput?) -> Void)) {
+        guard let input = contentEditingInput else { fatalError("missing input") }
+        guard let url = input.fullSizeImageURL else { fatalError("missing input image url") }
+        guard let inputImageCI = CIImage(contentsOf: url) else { fatalError("can't load input image to apply edit") }
+        
+        let orientedImageCI = inputImageCI.applyingOrientation(input.fullSizeImageOrientation)
+        let orientedImageNS = NSImage(ciImage: orientedImageCI)
+        
+        let outputImageNS: NSImage
+        switch parametersViewController.enhance.value {
+        case .Dark(let t, let a):
+            outputImageNS = SelectiveContrast.enhanceDark(orientedImageNS, t: t, a: a)
+        case .Global(let alpha):
+            outputImageNS = SelectiveContrast.enhanceGlobal(orientedImageNS, alpha: alpha)
+        }
+
+        guard let outputImageCI = CIImage(image: outputImageNS) else { fatalError("can't create CIImage from NSImage") }
+        
+        let context = CIContext()
+        do {
+            output.adjustmentData = PHAdjustmentData(formatIdentifier: "id", formatVersion: "0", data: Data())
+            try context.writeJPEGRepresentation(of: outputImageCI, to: output.renderedContentURL, colorSpace: inputImageCI.colorSpace!)
+            completionHandler(output)
+        } catch let error {
+            os_log("can't write image: %@", error.localizedDescription)
+            completionHandler(nil)
         }
     }
     
@@ -79,16 +111,12 @@ extension PhotoEditingViewController: PHContentEditingController {
         os_log("finishContentEditing(completionHandler: @escaping ((PHContentEditingOutput?) -> Void))", type: .info)
         
         DispatchQueue.global().async {
-            let output = PHContentEditingOutput(contentEditingInput: self.contentEditingInput!)
-            
-            // Provide new adjustments and render output to given location.
-            // let renderedJPEGData = <#output JPEG#>
-            // renderedJPEGData.writeToURL(output.renderedContentURL, atomically: true)
-            
-            // Call completion handler to commit edit to Photos.
-            completionHandler(output)
-            
-            // Clean up temporary files, etc.
+            [unowned self] in
+            if let editingInput = self.contentEditingInput {
+                let output = PHContentEditingOutput(contentEditingInput: editingInput)
+                
+                self.processImage(to: output, completionHandler: completionHandler)
+            }
         }
     }
     
@@ -102,7 +130,7 @@ extension PhotoEditingViewController: PHContentEditingController {
     }
 }
 
-extension NSView {
+private extension NSView {
     
     func addSubviewConstraintedToAnchors(_ view: NSView) {
         addSubview(view)
@@ -116,4 +144,11 @@ extension NSView {
         ])
     }
     
+}
+
+private extension NSImage {
+    convenience init(ciImage: CIImage) {
+        self.init(size: ciImage.extent.size)
+        self.addRepresentation(NSCIImageRep(ciImage: ciImage))
+    }
 }
