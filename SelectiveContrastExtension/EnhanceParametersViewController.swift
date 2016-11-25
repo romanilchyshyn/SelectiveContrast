@@ -61,46 +61,27 @@ class EnhanceParametersViewController: NSViewController {
         setupNumberFormatters()
         initializeSliders()
         
+        bindSliders()
         
-//        sliderT.rx.value.asObservable().map { [unowned self] in self.integerNumberFormatter.string(from: NSNumber(value: $0)) ?? "" }
-//            .bindTo(textFieldT.rx.text)
-//            .addDisposableTo(disposeBag)
         
-        let doubleFormatStringMap: ((Double) -> String) = { [unowned self] in self.doubleNumberFormatter.string(from: NSNumber(value: $0)) ?? "" }
-//        sliderA.rx.value.map(doubleFormatStringMap)
-//            .bindTo(textFieldA.rx.text)
-//            .addDisposableTo(disposeBag)
+        let enhanceDarkRadioButtonState = enhanceDarkRadioButton.rx.state.share()
+        let enhanceGlobalRadioButtonState = enhanceGlobalRadioButton.rx.state.share()
+
         
-        sliderAlpha.rx.value.map(doubleFormatStringMap)
-            .bindTo(textFieldAlpha.rx.text)
+        enhanceDarkRadioButtonState.map { $0 == NSOnState ? NSOffState : NSOnState }
+            .debug()
+            .bindTo(enhanceGlobalRadioButton.rx.state)
+            .addDisposableTo(disposeBag)
+        
+        enhanceGlobalRadioButtonState.map { $0 == NSOnState ? NSOffState : NSOnState }
+            .debug()
+            .bindTo(enhanceDarkRadioButton.rx.state)
             .addDisposableTo(disposeBag)
         
         
-//        Observable.combineLatest(sliderT.rx.value, sliderA.rx.value) { Enhance.Dark(T: $0, a: $1) }
-//            .bindTo(enhance)
-//            .addDisposableTo(disposeBag)
-        sliderAlpha.rx.value.map { Enhance.Global(alpha: $0) }
-            .bindTo(enhance)
-            .addDisposableTo(disposeBag)
-        
-        
-//        enhanceDarkRadioButton.rx.state.filter { $0 == NSOnState }
-//            .map { [unowned self] (Int) -> Enhance in
-//                return Enhance.Dark(T: self.sliderT.doubleValue, a: self.sliderA.doubleValue)
-//            }
-//            .bindTo(enhance)
-//            .addDisposableTo(disposeBag)
-//        
-//        enhanceGlobalRadioButton.rx.state.filter { $0 == NSOnState }
-//            .map { [unowned self] (Int) -> Enhance in
-//                return Enhance.Global(alpha: self.sliderAlpha.doubleValue)
-//            }
-//            .bindTo(enhance)
-//            .addDisposableTo(disposeBag)
-//        
-//        
-//        enhanceDarkRadioButton.rx.state.subscribe {
+//        enhanceDarkRadioButtonState.subscribe {
 //            [unowned self] in
+//            print("enhanceDarkRadioButtonState.subscribe")
 //            guard let state = $0.element else { return }
 //            let controlsEnabled = state == NSOnState
 //            self.sliderT.isEnabled = controlsEnabled
@@ -111,8 +92,9 @@ class EnhanceParametersViewController: NSViewController {
 //        } .addDisposableTo(disposeBag)
 //        
 //        
-//        enhanceGlobalRadioButton.rx.state.subscribe {
+//        enhanceGlobalRadioButtonState.subscribe {
 //            [unowned self] in
+//            print("enhanceGlobalRadioButtonState.subscribe")
 //            guard let state = $0.element else { return }
 //            let controlsEnabled = state == NSOnState
 //            self.sliderAlpha.isEnabled = controlsEnabled
@@ -122,6 +104,20 @@ class EnhanceParametersViewController: NSViewController {
         
         
         
+//        enhanceDarkRadioButtonState.filter { $0 == NSOnState }
+//            .map { [unowned self] (Int) -> Enhance in
+//                return Enhance.Dark(T: self.sliderT.doubleValue, a: self.sliderA.doubleValue)
+//            }
+//            .bindTo(enhance)
+//            .addDisposableTo(disposeBag)
+//        
+//        
+//        enhanceGlobalRadioButtonState.filter { $0 == NSOnState }
+//            .map { [unowned self] (Int) -> Enhance in
+//                return Enhance.Global(alpha: self.sliderAlpha.doubleValue)
+//            }
+//            .bindTo(enhance)
+//            .addDisposableTo(disposeBag)
         
     }
     
@@ -130,21 +126,51 @@ class EnhanceParametersViewController: NSViewController {
         view.layer!.backgroundColor = backgroundColor.cgColor
     }
     
+    func bindSliders() {
+        let sliderTvalue = sliderT.rx.value.shareReplay(1)
+        sliderTvalue.asObservable().map { [unowned self] in self.integerNumberFormatter.string(from: NSNumber(value: $0)) ?? "" }
+            .bindTo(textFieldT.rx.text)
+            .addDisposableTo(disposeBag)
+        
+        let doubleFormatStringMap: ((Double) -> String) = { [unowned self] in self.doubleNumberFormatter.string(from: NSNumber(value: $0)) ?? "" }
+        let sliderAvalue = sliderA.rx.value.shareReplay(1)
+        sliderAvalue.map(doubleFormatStringMap)
+            .bindTo(textFieldA.rx.text)
+            .addDisposableTo(disposeBag)
+        
+        let sliderAlphaValue = sliderAlpha.rx.value.share()
+        sliderAlphaValue.map(doubleFormatStringMap)
+            .bindTo(textFieldAlpha.rx.text)
+            .addDisposableTo(disposeBag)
+        
+        
+        
+        Observable.combineLatest(sliderTvalue, sliderAvalue) { Enhance.Dark(T: $0, a: $1) }
+            .bindTo(enhance)
+            .addDisposableTo(disposeBag)
+        sliderAlphaValue.map { Enhance.Global(alpha: $0) }
+            .bindTo(enhance)
+            .addDisposableTo(disposeBag)
+    }
+    
     func initializeSliders() {
         sliderT.minValue = minT
         sliderT.maxValue = maxT
+        sliderT.doubleValue = defaultT
         sliderT.altIncrementValue = incrementT
         sliderT.allowsTickMarkValuesOnly = true
         sliderT.isContinuous = true
         
         sliderA.minValue = minA
         sliderA.maxValue = maxA
+        sliderA.doubleValue = defaultA
         sliderA.altIncrementValue = incrementA
         sliderA.allowsTickMarkValuesOnly = true
         sliderA.isContinuous = true
         
         sliderAlpha.minValue = minAlpha
         sliderAlpha.maxValue = maxAlpha
+        sliderAlpha.doubleValue = defaultAlpha
         sliderAlpha.altIncrementValue = incrementAlpha
         sliderAlpha.allowsTickMarkValuesOnly = true
         sliderAlpha.isContinuous = true
