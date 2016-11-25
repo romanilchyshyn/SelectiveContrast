@@ -28,6 +28,13 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="VAl-he-Snn">
                     <rect key="frame" x="0.0" y="299" width="344" height="298"/>
                     <subviews>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="ZYM-ZA-6hX">
+                            <rect key="frame" x="120" y="229" width="105" height="18"/>
+                            <buttonCell key="cell" type="radio" title="Enhance dark" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="a9P-aR-0C7">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Shr-RY-ycT">
                             <rect key="frame" x="0.0" y="0.0" width="172" height="298"/>
                             <subviews>
@@ -46,21 +53,24 @@
                                     </constraints>
                                     <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="JWv-VO-EjO"/>
                                 </slider>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eMM-pZ-Gw1">
+                                    <rect key="frame" x="136" y="203" width="18" height="19"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="T" id="ryb-qc-Llp">
+                                        <font key="font" metaFont="system" size="15"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="O6w-kL-Ysi" secondAttribute="trailing" constant="20" id="0Xh-Gz-58b"/>
                                 <constraint firstItem="Hhr-Df-SKU" firstAttribute="top" secondItem="O6w-kL-Ysi" secondAttribute="bottom" constant="8" id="4dD-dy-Ecb"/>
                                 <constraint firstItem="Hhr-Df-SKU" firstAttribute="centerX" secondItem="O6w-kL-Ysi" secondAttribute="centerX" id="IXD-ci-GjU"/>
+                                <constraint firstItem="O6w-kL-Ysi" firstAttribute="top" secondItem="eMM-pZ-Gw1" secondAttribute="bottom" constant="8" symbolic="YES" id="ZSi-r1-51k"/>
                                 <constraint firstAttribute="bottom" secondItem="Hhr-Df-SKU" secondAttribute="bottom" constant="20" id="i6l-mS-L5t"/>
+                                <constraint firstItem="eMM-pZ-Gw1" firstAttribute="centerX" secondItem="O6w-kL-Ysi" secondAttribute="centerX" id="oBf-MY-1br"/>
                             </constraints>
                         </customView>
-                        <button translatesAutoresizingMaskIntoConstraints="NO" id="ZYM-ZA-6hX">
-                            <rect key="frame" x="120" y="214" width="105" height="18"/>
-                            <buttonCell key="cell" type="radio" title="Enhance dark" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="a9P-aR-0C7">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="hf0-MZ-DHe">
                             <rect key="frame" x="172" y="0.0" width="172" height="298"/>
                             <subviews>
@@ -76,22 +86,32 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B8P-f1-BSL">
+                                    <rect key="frame" x="19" y="203" width="18" height="19"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="A" id="Upn-K1-Pf1">
+                                        <font key="font" metaFont="system" size="15"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="B8P-f1-BSL" firstAttribute="centerX" secondItem="ldF-wu-JCf" secondAttribute="centerX" id="Tq2-8Z-Pva"/>
                                 <constraint firstItem="uzR-xj-72n" firstAttribute="centerX" secondItem="ldF-wu-JCf" secondAttribute="centerX" id="Ufn-tI-Pdw"/>
                                 <constraint firstItem="ldF-wu-JCf" firstAttribute="leading" secondItem="hf0-MZ-DHe" secondAttribute="leading" constant="20" id="dlG-n8-Z0b"/>
+                                <constraint firstItem="ldF-wu-JCf" firstAttribute="top" secondItem="B8P-f1-BSL" secondAttribute="bottom" constant="8" symbolic="YES" id="fYi-lt-gwn"/>
                             </constraints>
                         </customView>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="hf0-MZ-DHe" secondAttribute="trailing" id="642-S0-Dh1"/>
                         <constraint firstItem="Shr-RY-ycT" firstAttribute="leading" secondItem="VAl-he-Snn" secondAttribute="leading" id="83f-mr-b0E"/>
-                        <constraint firstItem="ZYM-ZA-6hX" firstAttribute="centerX" secondItem="VAl-he-Snn" secondAttribute="centerX" id="AuW-KS-e1f"/>
                         <constraint firstItem="hf0-MZ-DHe" firstAttribute="leading" secondItem="Shr-RY-ycT" secondAttribute="trailing" id="Grk-hW-e7c"/>
+                        <constraint firstItem="eMM-pZ-Gw1" firstAttribute="top" secondItem="ZYM-ZA-6hX" secondAttribute="bottom" constant="8" id="Ke2-Tv-LAe"/>
                         <constraint firstAttribute="bottom" secondItem="hf0-MZ-DHe" secondAttribute="bottom" id="PoF-r8-d5B"/>
-                        <constraint firstItem="O6w-kL-Ysi" firstAttribute="top" secondItem="ZYM-ZA-6hX" secondAttribute="bottom" constant="20" id="Q5M-9J-CC8"/>
                         <constraint firstItem="O6w-kL-Ysi" firstAttribute="bottom" secondItem="ldF-wu-JCf" secondAttribute="bottom" id="Yg0-Rm-Wnk"/>
                         <constraint firstItem="hf0-MZ-DHe" firstAttribute="top" secondItem="VAl-he-Snn" secondAttribute="top" id="Ys0-iP-1bM"/>
+                        <constraint firstItem="ZYM-ZA-6hX" firstAttribute="centerX" secondItem="VAl-he-Snn" secondAttribute="centerX" id="Z6z-Q8-6BU"/>
                         <constraint firstItem="uzR-xj-72n" firstAttribute="baseline" secondItem="Hhr-Df-SKU" secondAttribute="baseline" id="a8U-qn-s97"/>
                         <constraint firstAttribute="bottom" secondItem="Shr-RY-ycT" secondAttribute="bottom" id="bP7-jL-U0L"/>
                         <constraint firstItem="Shr-RY-ycT" firstAttribute="width" secondItem="hf0-MZ-DHe" secondAttribute="width" id="eDb-3W-pQI"/>
@@ -110,7 +130,7 @@
                             </buttonCell>
                         </button>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EAd-PH-VDe">
-                            <rect key="frame" x="161" y="68" width="24" height="17"/>
+                            <rect key="frame" x="160" y="43" width="24" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0.8" id="iq4-e5-2Ev">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -118,17 +138,27 @@
                             </textFieldCell>
                         </textField>
                         <slider horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l3W-8d-UkG">
-                            <rect key="frame" x="163" y="90" width="19" height="155"/>
-                            <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="UlC-YC-VY2"/>
+                            <rect key="frame" x="163" y="65" width="19" height="155"/>
+                            <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="right" sliderType="linear" id="UlC-YC-VY2"/>
                         </slider>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0S5-nJ-L3J">
+                            <rect key="frame" x="165" y="226" width="16" height="29"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="𝛼" id="QVX-3g-eih">
+                                <font key="font" size="15" name="STIXGeneral-Regular"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
                     </subviews>
                     <constraints>
                         <constraint firstItem="EAd-PH-VDe" firstAttribute="centerX" secondItem="l3W-8d-UkG" secondAttribute="centerX" id="2ej-Ad-KWY"/>
+                        <constraint firstItem="0S5-nJ-L3J" firstAttribute="top" secondItem="uZ1-D0-IsX" secondAttribute="bottom" constant="8" symbolic="YES" id="4dj-q3-rWJ"/>
                         <constraint firstItem="EAd-PH-VDe" firstAttribute="top" secondItem="l3W-8d-UkG" secondAttribute="bottom" constant="8" id="9Bw-UK-gQK"/>
                         <constraint firstItem="l3W-8d-UkG" firstAttribute="centerX" secondItem="T3x-g7-5gN" secondAttribute="centerX" id="Tui-ka-rJT"/>
                         <constraint firstItem="uZ1-D0-IsX" firstAttribute="top" secondItem="T3x-g7-5gN" secondAttribute="top" constant="20" id="UCX-CY-dkh"/>
                         <constraint firstItem="uZ1-D0-IsX" firstAttribute="centerX" secondItem="T3x-g7-5gN" secondAttribute="centerX" id="cus-dg-sBg"/>
-                        <constraint firstItem="l3W-8d-UkG" firstAttribute="top" secondItem="uZ1-D0-IsX" secondAttribute="bottom" constant="20" id="xDU-hC-Nvi"/>
+                        <constraint firstItem="l3W-8d-UkG" firstAttribute="top" secondItem="0S5-nJ-L3J" secondAttribute="bottom" constant="8" symbolic="YES" id="kbX-B6-Ssd"/>
+                        <constraint firstItem="0S5-nJ-L3J" firstAttribute="centerX" secondItem="l3W-8d-UkG" secondAttribute="centerX" id="zgg-H1-LXR"/>
                     </constraints>
                 </customView>
             </subviews>
@@ -143,7 +173,7 @@
                 <constraint firstAttribute="bottom" secondItem="T3x-g7-5gN" secondAttribute="bottom" id="sPS-md-uNi"/>
                 <constraint firstItem="T3x-g7-5gN" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="vSq-oh-ZfY"/>
             </constraints>
-            <point key="canvasLocation" x="-261" y="47"/>
+            <point key="canvasLocation" x="-261" y="46.5"/>
         </customView>
     </objects>
 </document>
