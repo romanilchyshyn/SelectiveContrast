@@ -124,7 +124,7 @@
                     <subviews>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="uZ1-D0-IsX">
                             <rect key="frame" x="115" y="262" width="115" height="18"/>
-                            <buttonCell key="cell" type="radio" title="Enhance global" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Wi2-oA-kJt">
+                            <buttonCell key="cell" type="radio" title="Enhance global" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Wi2-oA-kJt">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>

@@ -66,58 +66,34 @@ class EnhanceParametersViewController: NSViewController {
         
         let enhanceDarkRadioButtonState = enhanceDarkRadioButton.rx.state.share()
         let enhanceGlobalRadioButtonState = enhanceGlobalRadioButton.rx.state.share()
-
         
-        enhanceDarkRadioButtonState.map { $0 == NSOnState ? NSOffState : NSOnState }
-            .debug()
+        enhanceDarkRadioButtonState
+            .filter { $0 == NSOnState }
+            .map { _ in NSOffState } .debug()
             .bindTo(enhanceGlobalRadioButton.rx.state)
             .addDisposableTo(disposeBag)
         
-        enhanceGlobalRadioButtonState.map { $0 == NSOnState ? NSOffState : NSOnState }
-            .debug()
+        enhanceGlobalRadioButtonState
+            .filter { $0 == NSOnState }
+            .map { _ in NSOffState } .debug()
             .bindTo(enhanceDarkRadioButton.rx.state)
             .addDisposableTo(disposeBag)
         
         
-//        enhanceDarkRadioButtonState.subscribe {
-//            [unowned self] in
-//            print("enhanceDarkRadioButtonState.subscribe")
-//            guard let state = $0.element else { return }
-//            let controlsEnabled = state == NSOnState
-//            self.sliderT.isEnabled = controlsEnabled
-//            self.sliderA.isEnabled = controlsEnabled
-//            self.textFieldT.isEnabled = controlsEnabled
-//            self.textFieldA.isEnabled = controlsEnabled
-//            self.enhanceGlobalRadioButton.state = controlsEnabled ? NSOffState : NSOnState
-//        } .addDisposableTo(disposeBag)
-//        
-//        
-//        enhanceGlobalRadioButtonState.subscribe {
-//            [unowned self] in
-//            print("enhanceGlobalRadioButtonState.subscribe")
-//            guard let state = $0.element else { return }
-//            let controlsEnabled = state == NSOnState
-//            self.sliderAlpha.isEnabled = controlsEnabled
-//            self.textFieldAlpha.isEnabled = controlsEnabled
-//            self.enhanceDarkRadioButton.state = controlsEnabled ? NSOffState : NSOnState
-//        } .addDisposableTo(disposeBag)
+        enhanceDarkRadioButtonState.filter { $0 == NSOnState }
+            .map { [unowned self] (Int) -> Enhance in
+                return Enhance.Dark(T: self.sliderT.doubleValue, a: self.sliderA.doubleValue)
+            }
+            .bindTo(enhance)
+            .addDisposableTo(disposeBag)
         
         
-        
-//        enhanceDarkRadioButtonState.filter { $0 == NSOnState }
-//            .map { [unowned self] (Int) -> Enhance in
-//                return Enhance.Dark(T: self.sliderT.doubleValue, a: self.sliderA.doubleValue)
-//            }
-//            .bindTo(enhance)
-//            .addDisposableTo(disposeBag)
-//        
-//        
-//        enhanceGlobalRadioButtonState.filter { $0 == NSOnState }
-//            .map { [unowned self] (Int) -> Enhance in
-//                return Enhance.Global(alpha: self.sliderAlpha.doubleValue)
-//            }
-//            .bindTo(enhance)
-//            .addDisposableTo(disposeBag)
+        enhanceGlobalRadioButtonState.filter { $0 == NSOnState }
+            .map { [unowned self] (Int) -> Enhance in
+                return Enhance.Global(alpha: self.sliderAlpha.doubleValue)
+            }
+            .bindTo(enhance)
+            .addDisposableTo(disposeBag)
         
     }
     
@@ -143,8 +119,7 @@ class EnhanceParametersViewController: NSViewController {
             .bindTo(textFieldAlpha.rx.text)
             .addDisposableTo(disposeBag)
         
-        
-        
+
         Observable.combineLatest(sliderTvalue, sliderAvalue) { Enhance.Dark(T: $0, a: $1) }
             .bindTo(enhance)
             .addDisposableTo(disposeBag)
