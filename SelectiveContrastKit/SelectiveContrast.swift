@@ -21,15 +21,16 @@ public class SelectiveContrast {
             os_log("Can't create CGImage from NSImage = %@", log: log, type: .error, inputImage.debugDescription)
             return NSImage()
         }
+        
         var inputImageBuffer = inputImageCG.vImageBuffer
         defer { free(inputImageBuffer.data) }
         
-        
-        var outputImageBuffer = enhanceDark(&inputImageBuffer, format: inputImageCG.vImageFormat, t: t, a: a)
+        var outputImageBuffer = vImage_Buffer()
         defer { free(outputImageBuffer.data) }
         
-        var grayImageFormat = vImage_CGImageFormat.planar8vImage_CGImageFormat()
+        enhanceDark(&inputImageBuffer, outputImage: &outputImageBuffer, format: inputImageCG.vImageFormat, t: t, a: a)
         
+        var grayImageFormat = vImage_CGImageFormat.planar8vImage_CGImageFormat()
         let outputImageCG = CGImage.cgImage(with: &outputImageBuffer, format: &grayImageFormat)
         
         return NSImage(cgImage: outputImageCG, size: NSZeroSize)
@@ -41,19 +42,23 @@ public class SelectiveContrast {
     
     // MARK: vImage_Buffer
     
-    private static func enhanceDark(_ inputImage: inout vImage_Buffer, format: vImage_CGImageFormat, t: Double, a: Double) -> vImage_Buffer {
-        return rgbaToGrayIntensity(input: &inputImage)
+    private static func enhanceDark(_ inputImage: inout vImage_Buffer, outputImage: inout vImage_Buffer, format: vImage_CGImageFormat, t: Double, a: Double) {
+        var grayIntensitiesImage = vImage_Buffer()
+        defer { free(grayIntensitiesImage.data) }
+        
+        rgbaToGrayIntensity(input: &inputImage, output: &outputImage)
+        
+//        outputImage = grayIntensitiesImage
     }
     
-    private static func enhanceGlobal(_ inputImage: inout vImage_Buffer, format: vImage_CGImageFormat, alpha: Double) -> vImage_Buffer {
-        return rgbaToGrayIntensity(input: &inputImage)
+    private static func enhanceGlobal(_ inputImage: inout vImage_Buffer, output: inout vImage_Buffer, format: vImage_CGImageFormat, alpha: Double) {
+
     }
     
     
-    private static func rgbaToGrayIntensity(input: inout vImage_Buffer) -> vImage_Buffer {
-        var outBuffer = vImage_Buffer()
+    private static func rgbaToGrayIntensity(input: inout vImage_Buffer, output: inout vImage_Buffer) {
         let grayPixelBits = UInt32(8)
-        vImageBuffer_Init(&outBuffer,
+        vImageBuffer_Init(&output,
                           vImagePixelCount(input.height),
                           vImagePixelCount(input.width),
                           grayPixelBits,
@@ -67,14 +72,12 @@ public class SelectiveContrast {
         let martix = [red, green, blue]
         
         vImageMatrixMultiply_ARGB8888ToPlanar8(&input,
-                                               &outBuffer,
+                                               &output,
                                                martix,
                                                divisor,
                                                nil,
                                                divisor,
                                                vImage_Flags(kvImagePrintDiagnosticsToConsole))
-        
-        return outBuffer
     }
 
     
