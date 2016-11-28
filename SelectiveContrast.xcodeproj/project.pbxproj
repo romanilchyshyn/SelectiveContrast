@@ -10,7 +10,6 @@
 		A6078C2B1DE3995100F6DD78 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6078C291DE3995100F6DD78 /* RxCocoa.framework */; };
 		A6078C2C1DE3995100F6DD78 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6078C2A1DE3995100F6DD78 /* RxSwift.framework */; };
 		A614C01E1DE6F3140012A926 /* CGImage+vImageBufferUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A614C01D1DE6F3140012A926 /* CGImage+vImageBufferUtils.swift */; };
-		A614C0201DE6F3630012A926 /* CIImage+NSImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A614C01F1DE6F3630012A926 /* CIImage+NSImageUtils.swift */; };
 		A617969F1DE5D6D8004E7C22 /* SelectiveContrastKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A617969D1DE5D6D8004E7C22 /* SelectiveContrastKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A61796A21DE5D6D8004E7C22 /* SelectiveContrastKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A617969B1DE5D6D8004E7C22 /* SelectiveContrastKit.framework */; };
 		A61796A31DE5D6D8004E7C22 /* SelectiveContrastKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A617969B1DE5D6D8004E7C22 /* SelectiveContrastKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -77,7 +76,6 @@
 		A6078C291DE3995100F6DD78 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
 		A6078C2A1DE3995100F6DD78 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		A614C01D1DE6F3140012A926 /* CGImage+vImageBufferUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+vImageBufferUtils.swift"; sourceTree = "<group>"; };
-		A614C01F1DE6F3630012A926 /* CIImage+NSImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CIImage+NSImageUtils.swift"; sourceTree = "<group>"; };
 		A617969B1DE5D6D8004E7C22 /* SelectiveContrastKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SelectiveContrastKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A617969D1DE5D6D8004E7C22 /* SelectiveContrastKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectiveContrastKit.h; sourceTree = "<group>"; };
 		A617969E1DE5D6D8004E7C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 			children = (
 				A61796A91DE5D8C6004E7C22 /* SelectiveContrast.swift */,
 				A614C01D1DE6F3140012A926 /* CGImage+vImageBufferUtils.swift */,
-				A614C01F1DE6F3630012A926 /* CIImage+NSImageUtils.swift */,
 				A617969D1DE5D6D8004E7C22 /* SelectiveContrastKit.h */,
 				A617969E1DE5D6D8004E7C22 /* Info.plist */,
 			);
@@ -380,7 +377,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A614C01E1DE6F3140012A926 /* CGImage+vImageBufferUtils.swift in Sources */,
-				A614C0201DE6F3630012A926 /* CIImage+NSImageUtils.swift in Sources */,
 				A61796AA1DE5D8C6004E7C22 /* SelectiveContrast.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

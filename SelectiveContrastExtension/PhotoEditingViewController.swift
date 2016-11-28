@@ -57,9 +57,13 @@ class PhotoEditingViewController: NSViewController {
             
             guard let inImage = self.inputImage else { return }
             guard let e = wrapedEnhance.element else { return }
-            guard let alpha = e.alpha else { return }
+            switch e {
+            case .Dark(let t, let a):
+                self.outputImage = SelectiveContrast.enhanceDark(inImage, t: t, a: a)
+            case .Global(let alpha):
+                self.outputImage = SelectiveContrast.enhanceGlobal(inImage, alpha: alpha)
+            }
             
-            self.outputImage = SelectiveContrast.enhanceGlobal(inImage, alpha: alpha)
         } .addDisposableTo(disposeBag)
     }
     
@@ -150,5 +154,12 @@ private extension NSImage {
     convenience init(ciImage: CIImage) {
         self.init(size: ciImage.extent.size)
         self.addRepresentation(NSCIImageRep(ciImage: ciImage))
+    }
+}
+
+private extension CIImage {
+    convenience init?(image: NSImage) {
+        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
+        self.init(cgImage: cgImage)
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import Accelerate
+import os.log
 
 extension CGImage {
     
@@ -16,21 +17,33 @@ extension CGImage {
         var format = self.vImageFormat
         
         var imageBuffer = vImage_Buffer()
-        vImageBuffer_InitWithCGImage(&imageBuffer,
-                                     &format,
-                                     nil,
-                                     self,
-                                     vImage_Flags(kvImagePrintDiagnosticsToConsole))
+        let imageBufferResult = vImageBuffer_InitWithCGImage(&imageBuffer,
+                                                             &format,
+                                                             nil,
+                                                             self,
+                                                             vImage_Flags(kvImagePrintDiagnosticsToConsole))
+        os_log("Created vImage_Buffer from CGImage with error %@", type: .info, imageBufferResult.description)
+        
         return imageBuffer
     }
     
     var vImageFormat: vImage_CGImageFormat {
-        return vImage_CGImageFormat.init(bitsPerComponent: UInt32(self.bitsPerComponent),
-                                         bitsPerPixel: UInt32(self.bitsPerPixel),
-                                         colorSpace: Unmanaged.passUnretained(self.colorSpace!),
-                                         bitmapInfo: self.bitmapInfo,
-                                         version: 0,
-                                         decode: nil,
-                                         renderingIntent: .defaultIntent)
+        return vImage_CGImageFormat(bitsPerComponent: UInt32(self.bitsPerComponent),
+                                    bitsPerPixel: UInt32(self.bitsPerPixel),
+                                    colorSpace: Unmanaged.passUnretained(self.colorSpace!),
+                                    bitmapInfo: self.bitmapInfo,
+                                    version: 0,
+                                    decode: nil,
+                                    renderingIntent: .defaultIntent)
     }
+
+    static func cgImage(with buffer: inout vImage_Buffer, format: inout vImage_CGImageFormat) -> CGImage {
+        return vImageCreateCGImageFromBuffer(&buffer,
+                                             &format,
+                                             nil,
+                                             nil,
+                                             vImage_Flags(kvImageNoFlags),
+                                             nil).takeRetainedValue()
+    }
+    
 }
