@@ -52,7 +52,7 @@ class PhotoEditingViewController: NSViewController {
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
         
-        parametersViewController.enhance.asObservable()/*.throttle(0.5, scheduler: MainScheduler.instance)*/.subscribe { (wrapedEnhance) in
+        parametersViewController.enhance.asObservable().throttle(0.0005, scheduler: MainScheduler.instance).subscribe { (wrapedEnhance) in
             print(wrapedEnhance.element ?? "")
             
             guard let inImage = self.inputImage else { return }
@@ -85,6 +85,11 @@ class PhotoEditingViewController: NSViewController {
             outputImageNS = SelectiveContrast.enhanceGlobal(orientedImageNS, alpha: alpha)
         }
 
+        // MARK: Possible to do this with these lines
+//        let pngData = NSBitmapImageRep(cgImage: image.cgImage(forProposedRect: nil, context: nil, hints: nil)!)
+//        let data = pngData.representation(using: .PNG, properties: [:])
+//        data?.write(to: imageURL)
+        
         guard let outputImageCI = CIImage(image: outputImageNS) else { fatalError("can't create CIImage from NSImage") }
         
         let context = CIContext()

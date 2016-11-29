@@ -28,7 +28,7 @@ public class SelectiveContrast {
         var outputImageBuffer = vImage_Buffer()
         defer { free(outputImageBuffer.data) }
         
-        enhanceDark(&inputImageBuffer, outputImage: &outputImageBuffer, format: inputImageCG.vImageFormat, t: t, a: a)
+        enhanceDark(&inputImageBuffer, outputImage: &outputImageBuffer, t: t, a: a)
         
         var grayImageFormat = vImage_CGImageFormat.planar8vImage_CGImageFormat()
         let outputImageCG = CGImage.cgImage(with: &outputImageBuffer, format: &grayImageFormat)
@@ -42,21 +42,43 @@ public class SelectiveContrast {
     
     // MARK: vImage_Buffer
     
-    private static func enhanceDark(_ inputImage: inout vImage_Buffer, outputImage: inout vImage_Buffer, format: vImage_CGImageFormat, t: Double, a: Double) {
-        var grayIntensitiesImage = vImage_Buffer()
-        defer { free(grayIntensitiesImage.data) }
+    private static func enhanceDark(_ inputImage: inout vImage_Buffer, outputImage: inout vImage_Buffer, t: Double, a: Double) {
+        var grayImage = vImage_Buffer()
+        defer { free(grayImage.data) }
+        rgbaToGrayIntensity(input: &inputImage, output: &grayImage)
+        grayImage.printFirstValues()
+
+        var colorBalancedGrayImage = vImage_Buffer()
+//        defer { free(colorBalancedGrayImage.data) }
+        simplestColorBalance(input: &grayImage, output: &colorBalancedGrayImage, s: 5)
+        colorBalancedGrayImage.printFirstValues()
         
-        rgbaToGrayIntensity(input: &inputImage, output: &outputImage)
         
-//        outputImage = grayIntensitiesImage
+        outputImage = colorBalancedGrayImage
     }
     
     private static func enhanceGlobal(_ inputImage: inout vImage_Buffer, output: inout vImage_Buffer, format: vImage_CGImageFormat, alpha: Double) {
 
     }
     
+    // MARK: Utils
+    
+    private static func simplestColorBalance(input: inout vImage_Buffer, output: inout vImage_Buffer, s: UInt32) {
+        let grayPixelBits = UInt32(8)
+        vImageBuffer_Init(&output,
+                          vImagePixelCount(input.height),
+                          vImagePixelCount(input.width),
+                          grayPixelBits,
+                          vImage_Flags(kvImagePrintDiagnosticsToConsole))
+        vImageEndsInContrastStretch_Planar8(&input,
+                                            &output,
+                                            s,
+                                            s,
+                                            vImage_Flags(kvImageDoNotTile))
+    }
     
     private static func rgbaToGrayIntensity(input: inout vImage_Buffer, output: inout vImage_Buffer) {
+        // TODO: Need check that input is RGBA
         let grayPixelBits = UInt32(8)
         vImageBuffer_Init(&output,
                           vImagePixelCount(input.height),
@@ -93,6 +115,24 @@ extension vImage_CGImageFormat {
                                     version: 0,
                                     decode: nil,
                                     renderingIntent: .defaultIntent)
+    }
+    
+}
+
+private extension vImage_Buffer {
+    
+    func printFirstValues() {
+        print()
+        for line in stride(from: 0, to: 5, by: 1) {
+            print()
+            for column in stride(from: 0, to: 5, by: 1) {
+                let lineOffset = Int(self.rowBytes) * line
+                let columnOffset = lineOffset + column
+
+                let color = self.data.load(fromByteOffset: columnOffset, as: UInt8.self)
+                print("\(color)", terminator: " ")
+            }
+        }
     }
     
 }

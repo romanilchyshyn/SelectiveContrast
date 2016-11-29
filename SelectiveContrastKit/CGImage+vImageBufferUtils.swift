@@ -38,12 +38,12 @@ extension CGImage {
     }
 
     static func cgImage(with buffer: inout vImage_Buffer, format: inout vImage_CGImageFormat) -> CGImage {
-        return vImageCreateCGImageFromBuffer(&buffer,
-                                             &format,
-                                             nil,
-                                             nil,
-                                             vImage_Flags(kvImageNoFlags),
-                                             nil).takeRetainedValue()
+        return  vImageCreateCGImageFromBuffer(&buffer,
+                                              &format,
+                                              nil,
+                                              nil,
+                                              vImage_Flags(kvImagePrintDiagnosticsToConsole),
+                                              nil).takeRetainedValue()
     }
     
 }

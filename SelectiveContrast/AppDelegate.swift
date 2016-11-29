@@ -38,8 +38,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         var imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
         imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
+        imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
+        imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
+        imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
         
-        let imageOutPath = "/Users/romanilchyshyn/SelectiveContrastTests/image_out.png"
+        
+        let imageOutPath = "/Users/romanilchyshyn/SelectiveContrastTests/image_out0.png"
         write(image: imageOut, to: imageOutPath)
         
     }
