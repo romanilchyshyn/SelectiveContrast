@@ -13,6 +13,7 @@
 		A61796A31DE5D6D8004E7C22 /* SelectiveContrastKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A617969B1DE5D6D8004E7C22 /* SelectiveContrastKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A61796A81DE5D6F0004E7C22 /* SelectiveContrastKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A617969B1DE5D6D8004E7C22 /* SelectiveContrastKit.framework */; };
 		A61796AA1DE5D8C6004E7C22 /* SelectiveContrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61796A91DE5D8C6004E7C22 /* SelectiveContrast.swift */; };
+		A6879FB91E30130E001FA925 /* PiecewiseAffineHistogramEqualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6879FB81E30130E001FA925 /* PiecewiseAffineHistogramEqualization.swift */; };
 		A69891641DE32EAF001A4055 /* PhotoInputOutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69891631DE32EAF001A4055 /* PhotoInputOutputViewController.swift */; };
 		A69891661DE32ED8001A4055 /* PhotoInputOutputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A69891651DE32ED8001A4055 /* PhotoInputOutputViewController.xib */; };
 		A69891691DE33E3F001A4055 /* EnhanceParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69891671DE33E3F001A4055 /* EnhanceParametersViewController.swift */; };
@@ -78,6 +79,7 @@
 		A617969D1DE5D6D8004E7C22 /* SelectiveContrastKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectiveContrastKit.h; sourceTree = "<group>"; };
 		A617969E1DE5D6D8004E7C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A61796A91DE5D8C6004E7C22 /* SelectiveContrast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectiveContrast.swift; sourceTree = "<group>"; };
+		A6879FB81E30130E001FA925 /* PiecewiseAffineHistogramEqualization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiecewiseAffineHistogramEqualization.swift; sourceTree = "<group>"; };
 		A69891631DE32EAF001A4055 /* PhotoInputOutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoInputOutputViewController.swift; sourceTree = "<group>"; };
 		A69891651DE32ED8001A4055 /* PhotoInputOutputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoInputOutputViewController.xib; sourceTree = "<group>"; };
 		A69891671DE33E3F001A4055 /* EnhanceParametersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnhanceParametersViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				A61796A91DE5D8C6004E7C22 /* SelectiveContrast.swift */,
+				A6879FB81E30130E001FA925 /* PiecewiseAffineHistogramEqualization.swift */,
 				A614C01D1DE6F3140012A926 /* CGImage+vImageBufferUtils.swift */,
 				A617969D1DE5D6D8004E7C22 /* SelectiveContrastKit.h */,
 				A617969E1DE5D6D8004E7C22 /* Info.plist */,
@@ -354,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A614C01E1DE6F3140012A926 /* CGImage+vImageBufferUtils.swift in Sources */,
+				A6879FB91E30130E001FA925 /* PiecewiseAffineHistogramEqualization.swift in Sources */,
 				A61796AA1DE5D8C6004E7C22 /* SelectiveContrast.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

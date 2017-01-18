@@ -8,38 +8,49 @@
 
 import Cocoa
 
-class EnhanceParametersViewController: NSViewController {
+public protocol EnhanceParametersViewControllerDelegate {
+    func parametersDidChange(param: Int)
+}
 
-    // MARK: Constants
+public final class EnhanceParametersViewController: NSViewController {
+
+    // MARK: - Constants
     private let backgroundColor = NSColor(calibratedRed: 34.0/255, green: 34.0/255, blue: 34.0/255, alpha: 1.0)
     
     
-    // MARK: Properties
+    // MARK: - Properties
+    var delegate: EnhanceParametersViewControllerDelegate?
     
     var integerNumberFormatter = NumberFormatter()
     var doubleNumberFormatter = NumberFormatter()
     
-    // MARK: IBOutlets
+    // MARK: - IBOutlets
 
+
+    // MARK: - View controller lifecycle
     
-    // MARK: View controller lifecycle
-    
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         setupBackground()
         setupNumberFormatters()
     }
     
-    func setupBackground() {
+    private func setupBackground() {
         view.wantsLayer = true
         view.layer!.backgroundColor = backgroundColor.cgColor
     }
     
-    func setupNumberFormatters() {
+    private func setupNumberFormatters() {
         doubleNumberFormatter.numberStyle = .decimal
         doubleNumberFormatter.maximumFractionDigits = 2
         doubleNumberFormatter.minimumFractionDigits = 2
+    }
+    
+    // MARK: - IBActions
+    
+    @IBAction func sliderAction(_ sender: NSSlider) {
+        self.delegate?.parametersDidChange(param: Int(sender.intValue))
     }
     
 }

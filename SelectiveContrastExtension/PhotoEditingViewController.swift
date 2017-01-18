@@ -14,7 +14,7 @@ import os.log
 
 import SelectiveContrastKit
 
-class PhotoEditingViewController: NSViewController {
+class PhotoEditingViewController: NSViewController, EnhanceParametersViewControllerDelegate {
 
     // MARK: Properties
     let inputOutputViewController = PhotoInputOutputViewController()
@@ -26,8 +26,13 @@ class PhotoEditingViewController: NSViewController {
         didSet {
             inputOutputViewController.inputImage = inputImage
             outputImage = inputImage
+            if let inputImage = inputImage {
+                inputContext = PAEInputContext(image: inputImage)
+            }
         }
     }
+    
+    fileprivate var inputContext: PAEInputContext?
     
     fileprivate var outputImage: NSImage? {
         didSet {
@@ -47,10 +52,21 @@ class PhotoEditingViewController: NSViewController {
         
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
-        
+        parametersViewController.delegate = self
     }
     
-    // MARK: Helpers
+    // MARK: - EnhanceParametersViewControllerDelegate
+    
+    func parametersDidChange(param: Int) {
+        let t1 = Date()
+        guard let inputContext = inputContext else { return }
+//        let paeContext = PAEInputContext(image: inputImage)
+        outputImage = PiecewiseAffineHistogramEqualization.pae(with: inputContext, param: param)
+        let t2 = Date()
+        print("\(t2.timeIntervalSince1970 - t1.timeIntervalSince1970)")
+    }
+    
+    // MARK: - Helpers
     
     func processImage(to output: PHContentEditingOutput, completionHandler: ((PHContentEditingOutput?) -> Void)) {
         guard let input = contentEditingInput else { fatalError("missing input") }
