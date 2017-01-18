@@ -12,8 +12,6 @@ import PhotosUI
 
 import os.log
 
-import RxSwift
-
 import SelectiveContrastKit
 
 class PhotoEditingViewController: NSViewController {
@@ -37,8 +35,6 @@ class PhotoEditingViewController: NSViewController {
         }
     }
     
-    let disposeBag = DisposeBag()
-    
     // MARK: IBOutlets
     @IBOutlet weak var contentPanel: NSView!
     @IBOutlet weak var parametersPanel: NSView!
@@ -52,19 +48,6 @@ class PhotoEditingViewController: NSViewController {
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
         
-        parametersViewController.enhance.asObservable().throttle(0.05, scheduler: MainScheduler.instance).subscribe { (wrapedEnhance) in
-            print(wrapedEnhance.element ?? "")
-            
-            guard let inImage = self.inputImage else { return }
-            guard let e = wrapedEnhance.element else { return }
-            switch e {
-            case .Dark(let t, let a):
-                self.outputImage = SelectiveContrast.enhanceDark(inImage, t: t, a: a)
-            case .Global(let alpha):
-                self.outputImage = SelectiveContrast.enhanceGlobal(inImage, alpha: alpha)
-            }
-            
-        } .addDisposableTo(disposeBag)
     }
     
     // MARK: Helpers
@@ -78,12 +61,8 @@ class PhotoEditingViewController: NSViewController {
         let orientedImageNS = NSImage(ciImage: orientedImageCI)
         
         let outputImageNS: NSImage
-        switch parametersViewController.enhance.value {
-        case .Dark(let t, let a):
-            outputImageNS = SelectiveContrast.enhanceDark(orientedImageNS, t: t, a: a)
-        case .Global(let alpha):
-            outputImageNS = SelectiveContrast.enhanceGlobal(orientedImageNS, alpha: alpha)
-        }
+        outputImageNS = NSImage() // SelectiveContrast.enhanceGlobal(orientedImageNS, alpha: alpha)
+
 
         // MARK: Possible to do this with these lines
 //        let pngData = NSBitmapImageRep(cgImage: image.cgImage(forProposedRect: nil, context: nil, hints: nil)!)
