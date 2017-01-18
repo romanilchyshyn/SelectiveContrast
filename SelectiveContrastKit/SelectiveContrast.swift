@@ -30,7 +30,7 @@ public class SelectiveContrast {
         
         enhanceDark(&inputImageBuffer, outputImage: &outputImageBuffer, t: t, a: a)
         
-        var grayImageFormat = vImage_CGImageFormat.planar8vImage_CGImageFormat()
+        var grayImageFormat = inputImageCG.vImageFormat
         let outputImageCG = CGImage.cgImage(with: &outputImageBuffer, format: &grayImageFormat)
         
         return NSImage(cgImage: outputImageCG, size: NSZeroSize)
@@ -45,16 +45,26 @@ public class SelectiveContrast {
     private static func enhanceDark(_ inputImage: inout vImage_Buffer, outputImage: inout vImage_Buffer, t: Double, a: Double) {
         var grayImage = vImage_Buffer()
         defer { free(grayImage.data) }
-        rgbaToGrayIntensity(input: &inputImage, output: &grayImage)
-        grayImage.printFirstValues()
+        rgbaToGrayIntensity(rgbaInput: &inputImage, grayOutput: &grayImage)
+        grayImage.printGrayFirstValues()
 
         var colorBalancedGrayImage = vImage_Buffer()
-//        defer { free(colorBalancedGrayImage.data) }
-        simplestColorBalance(input: &grayImage, output: &colorBalancedGrayImage, s: 5)
-        colorBalancedGrayImage.printFirstValues()
+        defer { free(colorBalancedGrayImage.data) }
+        simplestColorBalance(input: &grayImage, output: &colorBalancedGrayImage, s: UInt32(t / 5.0))
+        colorBalancedGrayImage.printGrayFirstValues()
         
+        var colorBalancedColoredImage = vImage_Buffer()
+        print("start")
+        inputImage.printRGBFirstValues()
         
-        outputImage = colorBalancedGrayImage
+        transformIntensities(rgbaImage: &inputImage,
+                             grayImage: &grayImage,
+                             grayEnhancedImage: &colorBalancedGrayImage,
+                             rgbaOutputImage: &colorBalancedColoredImage)
+        print("end")
+        colorBalancedColoredImage.printRGBFirstValues()
+        
+        outputImage = colorBalancedColoredImage
     }
     
     private static func enhanceGlobal(_ inputImage: inout vImage_Buffer, output: inout vImage_Buffer, format: vImage_CGImageFormat, alpha: Double) {
@@ -62,6 +72,56 @@ public class SelectiveContrast {
     }
     
     // MARK: Utils
+    
+    private static func transformIntensities(rgbaImage: inout vImage_Buffer,
+                                             grayImage: inout vImage_Buffer,
+                                             grayEnhancedImage: inout vImage_Buffer,
+                                             rgbaOutputImage: inout vImage_Buffer) {
+        let rgbaBitsPerPixel = UInt32(32)
+        
+        vImageBuffer_Init(&rgbaOutputImage,
+                          vImagePixelCount(rgbaImage.height),
+                          vImagePixelCount(rgbaImage.width),
+                          rgbaBitsPerPixel,
+                          vImage_Flags(kvImagePrintDiagnosticsToConsole))
+        
+        for i in stride(from: 0, to: Int(rgbaImage.height), by: 1) {
+            for j in stride(from: 0, to: Int(rgbaImage.width), by: 1) {
+                let grayByteOffset = Int(grayImage.rowBytes) * i + j
+                
+                let grayIntensity = grayImage.data.load(fromByteOffset: grayByteOffset, as: UInt8.self)
+                let grayEnhancedIntensity = grayEnhancedImage.data.load(fromByteOffset: grayByteOffset, as: UInt8.self)
+                
+                if grayIntensity == 0 || grayEnhancedIntensity == 0 {
+                    continue
+                }
+                
+                let A = Double(grayEnhancedIntensity) / Double(grayIntensity)
+                
+                let rgbaByteOffset = Int(rgbaImage.rowBytes) * i + j * 32 / 8
+                let r = rgbaImage.data.load(fromByteOffset: rgbaByteOffset, as: UInt8.self)
+                let g = rgbaImage.data.load(fromByteOffset: rgbaByteOffset + 1, as: UInt8.self)
+                let b = rgbaImage.data.load(fromByteOffset: rgbaByteOffset + 2, as: UInt8.self)
+                
+                var re = Double(r) * A
+                var ge = Double(g) * A
+                var be = Double(b) * A
+                
+                if re > 255.0 || ge > 255.0 || be > 255.0 {
+                    let B = Double(max(r, g, b))
+                    let A1 = 255.0 / B
+
+                    re = Double(r) * A1
+                    ge = Double(g) * A1
+                    be = Double(b) * A1
+                }
+                
+                rgbaOutputImage.data.storeBytes(of: UInt8(Int(re)), toByteOffset: rgbaByteOffset, as: UInt8.self)
+                rgbaOutputImage.data.storeBytes(of: UInt8(Int(ge)), toByteOffset: rgbaByteOffset + 1, as: UInt8.self)
+                rgbaOutputImage.data.storeBytes(of: UInt8(Int(be)), toByteOffset: rgbaByteOffset + 2, as: UInt8.self)
+            }
+        }
+    }
     
     private static func simplestColorBalance(input: inout vImage_Buffer, output: inout vImage_Buffer, s: UInt32) {
         let grayPixelBits = UInt32(8)
@@ -77,12 +137,12 @@ public class SelectiveContrast {
                                             vImage_Flags(kvImageDoNotTile))
     }
     
-    private static func rgbaToGrayIntensity(input: inout vImage_Buffer, output: inout vImage_Buffer) {
+    private static func rgbaToGrayIntensity(rgbaInput: inout vImage_Buffer, grayOutput: inout vImage_Buffer) {
         // TODO: Need check that input is RGBA
         let grayPixelBits = UInt32(8)
-        vImageBuffer_Init(&output,
-                          vImagePixelCount(input.height),
-                          vImagePixelCount(input.width),
+        vImageBuffer_Init(&grayOutput,
+                          vImagePixelCount(rgbaInput.height),
+                          vImagePixelCount(rgbaInput.width),
                           grayPixelBits,
                           vImage_Flags(kvImagePrintDiagnosticsToConsole))
         
@@ -93,8 +153,8 @@ public class SelectiveContrast {
     
         let martix = [red, green, blue]
         
-        vImageMatrixMultiply_ARGB8888ToPlanar8(&input,
-                                               &output,
+        vImageMatrixMultiply_ARGB8888ToPlanar8(&rgbaInput,
+                                               &grayOutput,
                                                martix,
                                                divisor,
                                                nil,
@@ -121,16 +181,28 @@ extension vImage_CGImageFormat {
 
 private extension vImage_Buffer {
     
-    func printFirstValues() {
+    func printGrayFirstValues() {
         print()
-        for line in stride(from: 0, to: 5, by: 1) {
+        for line in stride(from: 0, to: 10, by: 1) {
             print()
-            for column in stride(from: 0, to: 5, by: 1) {
+            for column in stride(from: 0, to: 10, by: 1) {
                 let lineOffset = Int(self.rowBytes) * line
                 let columnOffset = lineOffset + column
 
                 let color = self.data.load(fromByteOffset: columnOffset, as: UInt8.self)
                 print("\(color)", terminator: " ")
+            }
+        }
+    }
+    
+    func printRGBFirstValues() {
+        print()
+        for i in stride(from: 0, to: 5, by: 1) {
+            print()
+            for j in stride(from: 0, to: 5, by: 1) {
+                let rgbaByteOffset = Int(self.rowBytes) * i + j * 32 / 8
+                let pixel = self.data.load(fromByteOffset: rgbaByteOffset, as: Pixel_8888.self)
+                print("\(pixel)", terminator: " ")
             }
         }
     }

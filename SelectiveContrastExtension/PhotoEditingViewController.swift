@@ -52,7 +52,7 @@ class PhotoEditingViewController: NSViewController {
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
         
-        parametersViewController.enhance.asObservable().throttle(0.0005, scheduler: MainScheduler.instance).subscribe { (wrapedEnhance) in
+        parametersViewController.enhance.asObservable().throttle(0.05, scheduler: MainScheduler.instance).subscribe { (wrapedEnhance) in
             print(wrapedEnhance.element ?? "")
             
             guard let inImage = self.inputImage else { return }
