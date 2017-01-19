@@ -59,7 +59,7 @@ public final class PAEInputContext {
 
 public class PiecewiseAffineHistogramEqualization {
     
-    public static func pae(with inputContext: PAEInputContext, param: Int) -> NSImage {
+    public static func pae(with inputContext: PAEInputContext, sMin: Int, sMax: Int, N: Int) -> NSImage {
         
         
         var outRedBuffer = vImage_Buffer(data: inputContext.redBuffer.data,
@@ -81,9 +81,9 @@ public class PiecewiseAffineHistogramEqualization {
         defer { free(outBlueBuffer.data) }
         
         
-        PiecewiseAffineHistogramEqualization.makeBetter(inBuffer: inputContext.redBuffer, outBuffer: outRedBuffer, param:param)
-        PiecewiseAffineHistogramEqualization.makeBetter(inBuffer: inputContext.greenBuffer, outBuffer: outGreenBuffer, param:param)
-        PiecewiseAffineHistogramEqualization.makeBetter(inBuffer: inputContext.blueBuffer, outBuffer: outBlueBuffer, param:param)
+        PiecewiseAffineHistogramEqualization.makeBetter(inBuffer: inputContext.redBuffer, outBuffer: outRedBuffer)
+        PiecewiseAffineHistogramEqualization.makeBetter(inBuffer: inputContext.greenBuffer, outBuffer: outGreenBuffer)
+        PiecewiseAffineHistogramEqualization.makeBetter(inBuffer: inputContext.blueBuffer, outBuffer: outBlueBuffer)
         
         
         let rgbBitsPerPixel = UInt32(24)
@@ -112,14 +112,14 @@ public class PiecewiseAffineHistogramEqualization {
         return NSImage(cgImage: rgbCG, size: NSSize.zero)
     }
     
-    private static func makeBetter(inBuffer: vImage_Buffer, outBuffer: vImage_Buffer, param: Int) {
+    private static func makeBetter(inBuffer: vImage_Buffer, outBuffer: vImage_Buffer) {
         
         for i in stride(from: 0, to: Int(inBuffer.height), by: 1) {
             for j in stride(from: 0, to: Int(inBuffer.width), by: 1) {
                 let byteOffset = Int(inBuffer.rowBytes) * i + j
                 
                 let oldValue = inBuffer.data.load(fromByteOffset: byteOffset, as: UInt8.self)
-                let intValue = Int(oldValue) + param
+                let intValue = Int(oldValue) + 42
                 if intValue > 250 || intValue < 10 {
                     continue
                 }

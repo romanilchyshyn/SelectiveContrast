@@ -40,6 +40,10 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
         }
     }
     
+    private var tempSmin: Int?
+    private var tempSmax: Int?
+    private var tempN: Int?
+    
     // MARK: IBOutlets
     @IBOutlet weak var contentPanel: NSView!
     @IBOutlet weak var parametersPanel: NSView!
@@ -58,9 +62,13 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
     // MARK: - EnhanceParametersViewControllerDelegate
     
     func parametersDidChange(smin: Int, smax: Int, N: Int) {
+        tempSmin = smin
+        tempSmax = smax
+        tempN = N
+        
         let t1 = Date()
         guard let inputContext = inputContext else { return }
-        outputImage = PiecewiseAffineHistogramEqualization.pae(with: inputContext, param: smin)
+        outputImage = PiecewiseAffineHistogramEqualization.pae(with: inputContext, sMin: smin, sMax: smax, N: N)
         let t2 = Date()
         print("\(t2.timeIntervalSince1970 - t1.timeIntervalSince1970)")
     }
@@ -76,7 +84,11 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
         let orientedImageNS = NSImage(ciImage: orientedImageCI)
         
         let orientedImageContext = PAEInputContext(image: orientedImageNS)
-        let outputImageNS = PiecewiseAffineHistogramEqualization.pae(with: orientedImageContext, param: 0)
+        guard let tempSmin = tempSmin, let tempSmax = tempSmax, let tempN = tempN else {
+            completionHandler(nil)
+            return
+        }
+        let outputImageNS = PiecewiseAffineHistogramEqualization.pae(with: orientedImageContext, sMin: tempSmin, sMax: tempSmax, N: tempN)
 
         // MARK: Possible to do this with these lines
 //        let pngData = NSBitmapImageRep(cgImage: image.cgImage(forProposedRect: nil, context: nil, hints: nil)!)
