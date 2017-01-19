@@ -57,11 +57,10 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
     
     // MARK: - EnhanceParametersViewControllerDelegate
     
-    func parametersDidChange(param: Int) {
+    func parametersDidChange(smin: Int, smax: Int, N: Int) {
         let t1 = Date()
         guard let inputContext = inputContext else { return }
-//        let paeContext = PAEInputContext(image: inputImage)
-        outputImage = PiecewiseAffineHistogramEqualization.pae(with: inputContext, param: param)
+        outputImage = PiecewiseAffineHistogramEqualization.pae(with: inputContext, param: smin)
         let t2 = Date()
         print("\(t2.timeIntervalSince1970 - t1.timeIntervalSince1970)")
     }
@@ -76,9 +75,8 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
         let orientedImageCI = inputImageCI.applyingOrientation(input.fullSizeImageOrientation)
         let orientedImageNS = NSImage(ciImage: orientedImageCI)
         
-        let outputImageNS: NSImage
-        outputImageNS = NSImage() // SelectiveContrast.enhanceGlobal(orientedImageNS, alpha: alpha)
-
+        let orientedImageContext = PAEInputContext(image: orientedImageNS)
+        let outputImageNS = PiecewiseAffineHistogramEqualization.pae(with: orientedImageContext, param: 0)
 
         // MARK: Possible to do this with these lines
 //        let pngData = NSBitmapImageRep(cgImage: image.cgImage(forProposedRect: nil, context: nil, hints: nil)!)

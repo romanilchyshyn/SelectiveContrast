@@ -9,7 +9,7 @@
 import Cocoa
 
 public protocol EnhanceParametersViewControllerDelegate {
-    func parametersDidChange(param: Int)
+    func parametersDidChange(smin: Int, smax: Int, N: Int)
 }
 
 public final class EnhanceParametersViewController: NSViewController {
@@ -21,19 +21,20 @@ public final class EnhanceParametersViewController: NSViewController {
     // MARK: - Properties
     var delegate: EnhanceParametersViewControllerDelegate?
     
-    var integerNumberFormatter = NumberFormatter()
-    var doubleNumberFormatter = NumberFormatter()
     
     // MARK: - IBOutlets
-
-
+    @IBOutlet weak var sliderN: NSSlider!
+    @IBOutlet weak var sliderSmax: NSSlider!
+    
+    @IBOutlet weak var lableN: NSTextField!
+    @IBOutlet weak var lableSmax: NSTextField!
+    
     // MARK: - View controller lifecycle
     
     override public func viewDidLoad() {
         super.viewDidLoad()
         
         setupBackground()
-        setupNumberFormatters()
     }
     
     private func setupBackground() {
@@ -41,16 +42,16 @@ public final class EnhanceParametersViewController: NSViewController {
         view.layer!.backgroundColor = backgroundColor.cgColor
     }
     
-    private func setupNumberFormatters() {
-        doubleNumberFormatter.numberStyle = .decimal
-        doubleNumberFormatter.maximumFractionDigits = 2
-        doubleNumberFormatter.minimumFractionDigits = 2
-    }
-    
     // MARK: - IBActions
     
-    @IBAction func sliderAction(_ sender: NSSlider) {
-        self.delegate?.parametersDidChange(param: Int(sender.intValue))
+    @IBAction func sliderNAction(_ sender: NSSlider) {
+        lableN.stringValue = "N = \(sender.integerValue)"
+        delegate?.parametersDidChange(smin: 0, smax: Int(sliderSmax.intValue), N: Int(sliderN.intValue))
+    }
+    
+    @IBAction func sliderSmaxAction(_ sender: NSSlider) {
+        lableSmax.stringValue = "Smax = \(sender.integerValue)"
+        delegate?.parametersDidChange(smin: 0, smax: Int(sliderSmax.intValue), N: Int(sliderN.intValue))
     }
     
 }

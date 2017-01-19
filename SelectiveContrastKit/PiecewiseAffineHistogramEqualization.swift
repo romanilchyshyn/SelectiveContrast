@@ -66,19 +66,19 @@ public class PiecewiseAffineHistogramEqualization {
                                          height: inputContext.height,
                                          width: inputContext.width,
                                          rowBytes: inputContext.redBuffer.rowBytes)
-//        defer { free(outRedBuffer.data) }
+        defer { free(outRedBuffer.data) }
         
         var outGreenBuffer = vImage_Buffer(data: inputContext.greenBuffer.data,
                                            height: inputContext.height,
                                            width: inputContext.width,
                                            rowBytes: inputContext.greenBuffer.rowBytes)
-//        defer { free(outGreenBuffer.data) }
+        defer { free(outGreenBuffer.data) }
         
         var outBlueBuffer = vImage_Buffer(data: inputContext.blueBuffer.data,
                                           height: inputContext.height,
                                           width: inputContext.width,
                                           rowBytes: inputContext.blueBuffer.rowBytes)
-//        defer { free(outBlueBuffer.data) }
+        defer { free(outBlueBuffer.data) }
         
         
         PiecewiseAffineHistogramEqualization.makeBetter(inBuffer: inputContext.redBuffer, outBuffer: outRedBuffer, param:param)
@@ -86,10 +86,10 @@ public class PiecewiseAffineHistogramEqualization {
         PiecewiseAffineHistogramEqualization.makeBetter(inBuffer: inputContext.blueBuffer, outBuffer: outBlueBuffer, param:param)
         
         
-        let rgbBitPerPixel = UInt32(24)
+        let rgbBitsPerPixel = UInt32(24)
         
         var outBuffer = vImage_Buffer()
-        vImageBuffer_Init(&outBuffer, inputContext.height, inputContext.width, rgbBitPerPixel, vImage_Flags(kvImagePrintDiagnosticsToConsole))
+        vImageBuffer_Init(&outBuffer, inputContext.height, inputContext.width, rgbBitsPerPixel, vImage_Flags(kvImagePrintDiagnosticsToConsole))
         defer { free(outBuffer.data) }
         
         vImageConvert_Planar8toRGB888(&outRedBuffer,
@@ -101,7 +101,7 @@ public class PiecewiseAffineHistogramEqualization {
         
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
         var rgbFormat = vImage_CGImageFormat(bitsPerComponent: 8,
-                                             bitsPerPixel: rgbBitPerPixel,
+                                             bitsPerPixel: rgbBitsPerPixel,
                                              colorSpace: Unmanaged.passUnretained(rgbColorSpace),
                                              bitmapInfo: .alphaInfoMask,
                                              version: 0,
@@ -120,7 +120,7 @@ public class PiecewiseAffineHistogramEqualization {
                 
                 let oldValue = inBuffer.data.load(fromByteOffset: byteOffset, as: UInt8.self)
                 let intValue = Int(oldValue) + param
-                if intValue > 250 {
+                if intValue > 250 || intValue < 10 {
                     continue
                 }
                 

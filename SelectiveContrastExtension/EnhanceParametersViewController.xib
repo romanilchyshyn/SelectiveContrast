@@ -8,6 +8,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EnhanceParametersViewController" customModule="SelectiveContrastExtension" customModuleProvider="target">
             <connections>
+                <outlet property="lableN" destination="3Da-db-TL4" id="LS8-Z4-f9s"/>
+                <outlet property="lableSmax" destination="eFo-Fk-Rht" id="0IF-Hs-p7g"/>
+                <outlet property="sliderN" destination="hLb-J9-Auj" id="EyW-Mt-5H9"/>
+                <outlet property="sliderSmax" destination="lHn-Da-mvw" id="eTO-MN-H9k"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -17,21 +21,68 @@
             <rect key="frame" x="0.0" y="0.0" width="344" height="597"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x1W-Bu-SCb">
-                    <rect key="frame" x="3" y="286" width="338" height="24"/>
-                    <sliderCell key="cell" state="on" alignment="left" maxValue="50" doubleValue="5.1020408163265305" tickMarkPosition="above" numberOfTickMarks="50" allowsTickMarkValuesOnly="YES" sliderType="linear" id="Tpe-Jz-3e8"/>
-                    <connections>
-                        <action selector="sliderAction:" target="-2" id="YyA-CO-6E3"/>
-                    </connections>
-                </slider>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="1ig-22-HLe">
+                    <rect key="frame" x="0.0" y="299" width="344" height="298"/>
+                    <subviews>
+                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hLb-J9-Auj">
+                            <rect key="frame" x="18" y="43" width="308" height="24"/>
+                            <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="5" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="kKv-LE-dtY"/>
+                            <connections>
+                                <action selector="sliderNAction:" target="-2" id="ybM-wA-m5H"/>
+                            </connections>
+                        </slider>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Da-db-TL4">
+                            <rect key="frame" x="151" y="20" width="42" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="N = 5" id="hvd-Bh-bca">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFo-Fk-Rht">
+                            <rect key="frame" x="140" y="97" width="65" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Smax = 3" id="cwf-7N-BMO">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lHn-Da-mvw">
+                            <rect key="frame" x="18" y="121" width="308" height="24"/>
+                            <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="3" tickMarkPosition="below" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="pmm-UB-a8o"/>
+                            <connections>
+                                <action selector="sliderSmaxAction:" target="-2" id="ZAZ-5t-ZCs"/>
+                            </connections>
+                        </slider>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="3Da-db-TL4" firstAttribute="top" secondItem="hLb-J9-Auj" secondAttribute="bottom" constant="8" id="5uN-Jr-Uyd"/>
+                        <constraint firstAttribute="trailing" secondItem="lHn-Da-mvw" secondAttribute="trailing" constant="20" id="HOg-Rt-GkO"/>
+                        <constraint firstItem="hLb-J9-Auj" firstAttribute="top" secondItem="eFo-Fk-Rht" secondAttribute="bottom" constant="30" id="IgW-by-zZI"/>
+                        <constraint firstAttribute="trailing" secondItem="hLb-J9-Auj" secondAttribute="trailing" constant="20" id="Opg-bz-vaG"/>
+                        <constraint firstItem="lHn-Da-mvw" firstAttribute="leading" secondItem="1ig-22-HLe" secondAttribute="leading" constant="20" id="SAC-Is-PMp"/>
+                        <constraint firstItem="eFo-Fk-Rht" firstAttribute="centerX" secondItem="1ig-22-HLe" secondAttribute="centerX" id="XUl-va-m9x"/>
+                        <constraint firstItem="3Da-db-TL4" firstAttribute="centerX" secondItem="1ig-22-HLe" secondAttribute="centerX" id="Z77-IB-tEK"/>
+                        <constraint firstItem="eFo-Fk-Rht" firstAttribute="top" secondItem="lHn-Da-mvw" secondAttribute="bottom" constant="8" id="aik-ej-QLq"/>
+                        <constraint firstItem="hLb-J9-Auj" firstAttribute="leading" secondItem="1ig-22-HLe" secondAttribute="leading" constant="20" id="aqE-As-RFy"/>
+                        <constraint firstAttribute="bottom" secondItem="3Da-db-TL4" secondAttribute="bottom" constant="20" id="xLC-f8-rU2"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lj6-mm-eI4">
+                    <rect key="frame" x="0.0" y="0.0" width="344" height="299"/>
+                </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="x1W-Bu-SCb" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="5" id="jf6-nZ-lRn"/>
-                <constraint firstItem="x1W-Bu-SCb" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="m1K-U1-Nxg"/>
-                <constraint firstItem="x1W-Bu-SCb" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="tjA-Ac-Iju"/>
-                <constraint firstAttribute="trailing" secondItem="x1W-Bu-SCb" secondAttribute="trailing" constant="5" id="yFF-2y-CaU"/>
+                <constraint firstItem="Lj6-mm-eI4" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="G1d-TY-yuX"/>
+                <constraint firstItem="1ig-22-HLe" firstAttribute="height" secondItem="Lj6-mm-eI4" secondAttribute="height" id="Kcm-Xa-wgG"/>
+                <constraint firstItem="1ig-22-HLe" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="LQG-2Q-bto"/>
+                <constraint firstAttribute="bottom" secondItem="Lj6-mm-eI4" secondAttribute="bottom" id="P3P-lr-2X1"/>
+                <constraint firstAttribute="trailing" secondItem="1ig-22-HLe" secondAttribute="trailing" id="Sb7-jm-yeh"/>
+                <constraint firstAttribute="trailing" secondItem="Lj6-mm-eI4" secondAttribute="trailing" id="djQ-iT-uAS"/>
+                <constraint firstItem="1ig-22-HLe" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="eab-7t-ZNK"/>
+                <constraint firstItem="Lj6-mm-eI4" firstAttribute="top" secondItem="1ig-22-HLe" secondAttribute="bottom" id="hf6-cB-Mfk"/>
             </constraints>
-            <point key="canvasLocation" x="-457" y="-20"/>
+            <point key="canvasLocation" x="-747" y="-78"/>
         </customView>
     </objects>
 </document>
