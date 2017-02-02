@@ -12,11 +12,9 @@ import PhotosUI
 
 import os.log
 
-import RxSwift
-
 import SelectiveContrastKit
 
-class PhotoEditingViewController: NSViewController {
+class PhotoEditingViewController: NSViewController, EnhanceParametersViewControllerDelegate {
 
     // MARK: Properties
     let inputOutputViewController = PhotoInputOutputViewController()
@@ -28,8 +26,13 @@ class PhotoEditingViewController: NSViewController {
         didSet {
             inputOutputViewController.inputImage = inputImage
             outputImage = inputImage
+            if let inputImage = inputImage {
+                inputContext = PAEInputContext(image: inputImage)
+            }
         }
     }
+    
+    fileprivate var inputContext: PAEInputContext?
     
     fileprivate var outputImage: NSImage? {
         didSet {
@@ -37,7 +40,9 @@ class PhotoEditingViewController: NSViewController {
         }
     }
     
-    let disposeBag = DisposeBag()
+    private var tempSmin: Int?
+    private var tempSmax: Int?
+    private var tempN: Int?
     
     // MARK: IBOutlets
     @IBOutlet weak var contentPanel: NSView!
@@ -51,23 +56,24 @@ class PhotoEditingViewController: NSViewController {
         
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
-        
-        parametersViewController.enhance.asObservable().throttle(0.05, scheduler: MainScheduler.instance).subscribe { (wrapedEnhance) in
-            print(wrapedEnhance.element ?? "")
-            
-            guard let inImage = self.inputImage else { return }
-            guard let e = wrapedEnhance.element else { return }
-            switch e {
-            case .Dark(let t, let a):
-                self.outputImage = SelectiveContrast.enhanceDark(inImage, t: t, a: a)
-            case .Global(let alpha):
-                self.outputImage = SelectiveContrast.enhanceGlobal(inImage, alpha: alpha)
-            }
-            
-        } .addDisposableTo(disposeBag)
+        parametersViewController.delegate = self
     }
     
-    // MARK: Helpers
+    // MARK: - EnhanceParametersViewControllerDelegate
+    
+    func parametersDidChange(smin: Int, smax: Int, N: Int) {
+        tempSmin = smin
+        tempSmax = smax
+        tempN = N
+        
+        let t1 = Date()
+        guard let inputContext = inputContext else { return }
+        outputImage = PiecewiseAffineHistogramEqualization.pae(with: inputContext, sMin: smin, sMax: smax, N: N)
+        let t2 = Date()
+        print("\(t2.timeIntervalSince1970 - t1.timeIntervalSince1970)")
+    }
+    
+    // MARK: - Helpers
     
     func processImage(to output: PHContentEditingOutput, completionHandler: ((PHContentEditingOutput?) -> Void)) {
         guard let input = contentEditingInput else { fatalError("missing input") }
@@ -77,13 +83,12 @@ class PhotoEditingViewController: NSViewController {
         let orientedImageCI = inputImageCI.applyingOrientation(input.fullSizeImageOrientation)
         let orientedImageNS = NSImage(ciImage: orientedImageCI)
         
-        let outputImageNS: NSImage
-        switch parametersViewController.enhance.value {
-        case .Dark(let t, let a):
-            outputImageNS = SelectiveContrast.enhanceDark(orientedImageNS, t: t, a: a)
-        case .Global(let alpha):
-            outputImageNS = SelectiveContrast.enhanceGlobal(orientedImageNS, alpha: alpha)
+        let orientedImageContext = PAEInputContext(image: orientedImageNS)
+        guard let tempSmin = tempSmin, let tempSmax = tempSmax, let tempN = tempN else {
+            completionHandler(nil)
+            return
         }
+        let outputImageNS = PiecewiseAffineHistogramEqualization.pae(with: orientedImageContext, sMin: tempSmin, sMax: tempSmax, N: tempN)
 
         // MARK: Possible to do this with these lines
 //        let pngData = NSBitmapImageRep(cgImage: image.cgImage(forProposedRect: nil, context: nil, hints: nil)!)

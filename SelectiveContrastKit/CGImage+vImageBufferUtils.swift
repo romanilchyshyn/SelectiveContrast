@@ -22,12 +22,13 @@ extension CGImage {
                                                              nil,
                                                              self,
                                                              vImage_Flags(kvImagePrintDiagnosticsToConsole))
-        os_log("Created vImage_Buffer from CGImage with error %@", type: .info, imageBufferResult.description)
+        
+        if imageBufferResult != kvImageNoError { fatalError("Can't create vImage_Buffer from CGImage with error \(imageBufferResult)") }
         
         return imageBuffer
     }
     
-    var vImageFormat: vImage_CGImageFormat {
+    public var vImageFormat: vImage_CGImageFormat {
         return vImage_CGImageFormat(bitsPerComponent: UInt32(self.bitsPerComponent),
                                     bitsPerPixel: UInt32(self.bitsPerPixel),
                                     colorSpace: Unmanaged.passUnretained(self.colorSpace!),
@@ -37,13 +38,26 @@ extension CGImage {
                                     renderingIntent: .defaultIntent)
     }
 
-    static func cgImage(with buffer: inout vImage_Buffer, format: inout vImage_CGImageFormat) -> CGImage {
+    public static func cgImage(with buffer: inout vImage_Buffer, format: inout vImage_CGImageFormat) -> CGImage {
         return  vImageCreateCGImageFromBuffer(&buffer,
                                               &format,
                                               nil,
                                               nil,
                                               vImage_Flags(kvImagePrintDiagnosticsToConsole),
                                               nil).takeRetainedValue()
+    }
+    
+    public static func rgbCgImage(with buffer: inout vImage_Buffer) -> CGImage {
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        var rgbFormat = vImage_CGImageFormat(bitsPerComponent: 8,
+                                             bitsPerPixel: 24,
+                                             colorSpace: Unmanaged.passUnretained(rgbColorSpace),
+                                             bitmapInfo: .alphaInfoMask,
+                                             version: 0,
+                                             decode: nil,
+                                             renderingIntent: .defaultIntent)
+        
+        return  CGImage.cgImage(with: &buffer, format: &rgbFormat)
     }
     
 }

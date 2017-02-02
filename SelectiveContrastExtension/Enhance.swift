@@ -8,26 +8,3 @@
 
 import Foundation
 
-enum Enhance {
-    
-    case Dark(T: Double, a: Double)
-    case Global(alpha: Double)
-    
-    var ta: (T: Double, a: Double)? {
-        get {
-            switch self {
-            case .Dark(let T, let a): return (T, a)
-            case .Global: return nil
-            }
-        }
-    }
-    
-    var alpha: Double? {
-        get {
-            switch self {
-            case .Global(let alpha): return alpha
-            case .Dark: return nil
-            }
-        }
-    }
-}
