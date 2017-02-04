@@ -9,9 +9,19 @@
 import Foundation
 import Accelerate
 
-public class PiecewiseAffineHistogramEqualization {
+public struct OutputContext {
     
-    public static func pae(with inputImage: NSImage, sMin: Double, sMax: Double, N: Int) -> NSImage {
+    public let image: NSImage
+    public let ys: [Double]
+    public let xs: (r: [Double], g: [Double], b: [Double])
+    public let inHistogram: (r: [UInt], g: [UInt], b: [UInt])
+    public let outHistogram: (r: [UInt], g: [UInt], b: [UInt])
+    
+}
+
+public final class PiecewiseAffineHistogramEqualization {
+    
+    public static func pae(with inputImage: NSImage, sMin: Double, sMax: Double, N: Int) -> OutputContext {
         
         let inputCG = inputImage.cgImage(forProposedRect: nil, context: nil, hints: nil)!
         var inputBufferImage = inputCG.vImageBuffer
@@ -79,7 +89,11 @@ public class PiecewiseAffineHistogramEqualization {
         let outputCG = CGImage.cgImage(with: &outputBuffer, format: &rgbFormat)
         let output = NSImage(cgImage: outputCG, size: NSSize.zero)
 
-        return output
+        return OutputContext(image: output,
+                             ys: Ys,
+                             xs: (redXs, greenXs, blueXs),
+                             inHistogram: (redInHistogram, greenInHistogram, blueInHistogram),
+                             outHistogram: (redOutHistogram, greenOutHistogram, blueOutHistogram))
     }
 
     private static func processChannel(buffer: inout vImage_Buffer,

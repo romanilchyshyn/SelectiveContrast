@@ -34,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         guard let input = NSImage(contentsOf: imageInURL) else { fatalError("No input image") }
         let t1 = Date()
-        let output = PiecewiseAffineHistogramEqualization.pae(with: input, sMin: 0.0, sMax: 3.0, N: 5)
+        let output = PiecewiseAffineHistogramEqualization.pae(with: input, sMin: 0.0, sMax: 3.0, N: 5).image
         let t2 = Date()
         write(image: output, to: imageOutPath)
         

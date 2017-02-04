@@ -14,6 +14,12 @@ import os.log
 
 import SelectiveContrastKit
 
+protocol PhotoEditingViewControllerDelegate: class {
+    
+    func plotDataDidUpdate(in outputContext: OutputContext)
+    
+}
+
 class PhotoEditingViewController: NSViewController, EnhanceParametersViewControllerDelegate {
 
     // MARK: Properties
@@ -29,11 +35,20 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
         }
     }
     
+    fileprivate var outputContext: OutputContext? {
+        didSet {
+            guard let outCtx = outputContext else { return }
+            outputImage = outCtx.image
+        }
+    }
+    
     fileprivate var outputImage: NSImage? {
         didSet {
             inputOutputViewController.outputImage = outputImage
         }
     }
+    
+    weak var delegate: PhotoEditingViewControllerDelegate?
     
     private var tempSmin: Int?
     private var tempSmax: Int?
@@ -52,6 +67,7 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
         contentPanel.addSubviewConstraintedToAnchors(inputOutputViewController.view)
         parametersPanel.addSubviewConstraintedToAnchors(parametersViewController.view)
         parametersViewController.delegate = self
+        delegate = parametersViewController
     }
     
     // MARK: - EnhanceParametersViewControllerDelegate
@@ -71,7 +87,8 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
             os_log("%@", time)
             
             DispatchQueue.main.async {
-                self.outputImage = out
+                self.outputContext = out
+                self.delegate?.plotDataDidUpdate(in: out)
             }
         }
     }
@@ -90,7 +107,10 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
             completionHandler(nil)
             return
         }
-        let outputImageNS = PiecewiseAffineHistogramEqualization.pae(with: orientedImageNS, sMin: Double(tempSmin), sMax: Double(tempSmax), N: tempN)
+        let outputImageNS = PiecewiseAffineHistogramEqualization.pae(with: orientedImageNS,
+                                                                     sMin: Double(tempSmin),
+                                                                     sMax: Double(tempSmax),
+                                                                     N: tempN).image
 
         // MARK: Possible to do this with these lines
 //        let pngData = NSBitmapImageRep(cgImage: image.cgImage(forProposedRect: nil, context: nil, hints: nil)!)
@@ -163,15 +183,19 @@ private extension NSView {
 }
 
 private extension NSImage {
+    
     convenience init(ciImage: CIImage) {
         self.init(size: ciImage.extent.size)
         self.addRepresentation(NSCIImageRep(ciImage: ciImage))
     }
+    
 }
 
 private extension CIImage {
+    
     convenience init?(image: NSImage) {
         guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
         self.init(cgImage: cgImage)
     }
+    
 }

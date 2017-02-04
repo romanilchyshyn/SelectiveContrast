@@ -8,19 +8,22 @@
 
 import Cocoa
 import Charts
+import SelectiveContrastKit
 
-public protocol EnhanceParametersViewControllerDelegate {
+public protocol EnhanceParametersViewControllerDelegate: class {
+    
     func parametersDidChange(smin: Int, smax: Int, N: Int)
+    
 }
 
-public final class EnhanceParametersViewController: NSViewController {
+public final class EnhanceParametersViewController: NSViewController, PhotoEditingViewControllerDelegate {
 
     // MARK: - Constants
     private let backgroundColor = NSColor(calibratedRed: 34.0/255, green: 34.0/255, blue: 34.0/255, alpha: 1.0)
     
     
     // MARK: - Properties
-    var delegate: EnhanceParametersViewControllerDelegate?
+    weak var delegate: EnhanceParametersViewControllerDelegate?
     
     
     // MARK: - IBOutlets
@@ -31,7 +34,10 @@ public final class EnhanceParametersViewController: NSViewController {
     @IBOutlet weak var lableN: NSTextField!
     @IBOutlet weak var lableSmax: NSTextField!
     
-    @IBOutlet weak var lineChart: LineChartView!
+    @IBOutlet weak var inHistogramChart: LineChartView!
+    @IBOutlet weak var outHistogramChart: LineChartView!
+    @IBOutlet weak var transformCurveChart: LineChartView!
+    
     
     // MARK: - View controller lifecycle
     
@@ -39,7 +45,7 @@ public final class EnhanceParametersViewController: NSViewController {
         super.viewDidLoad()
         
         setupBackground()
-        setupChart()
+        setupCharts()
     }
     
     private func setupBackground() {
@@ -47,27 +53,93 @@ public final class EnhanceParametersViewController: NSViewController {
         view.layer!.backgroundColor = backgroundColor.cgColor
     }
     
-    private func setupChart() {
+    private func setupCharts() {
+        prepareChart(chart: inHistogramChart)
+        inHistogramChart.data = LineChartData()
+        prepareChart(chart: outHistogramChart)
+        outHistogramChart.data = LineChartData()
         
-        let ys1 = Array(1..<10).map { x in return sin(Double(x) / 2.0 / 3.141 * 1.5) }
-        let ys2 = Array(1..<10).map { x in return cos(Double(x) / 2.0 / 3.141) }
+        prepareChart(chart: transformCurveChart)
+        transformCurveChart.data = ScatterChartData()
+        transformCurveChart.heightAnchor.constraint(equalTo: transformCurveChart.widthAnchor).isActive = true
+    }
+    
+    private func prepareChart(chart: BarLineChartViewBase) {
+        chart.drawBordersEnabled = true
         
-        let yse1 = ys1.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
-        let yse2 = ys2.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
+        chart.noDataText = ""
+        chart.chartDescription?.text = ""
         
-        let data = LineChartData()
-        let ds1 = LineChartDataSet(values: yse1, label: "Hello")
-        ds1.colors = [NSUIColor.red]
-        data.addDataSet(ds1)
+        chart.drawMarkers = false
+        chart.legend.enabled = false
         
-        let ds2 = LineChartDataSet(values: yse2, label: "World")
-        ds2.colors = [NSUIColor.blue]
-        data.addDataSet(ds2)
-        self.lineChart.data = data
+        chart.xAxis.drawLabelsEnabled = false
+        chart.xAxis.drawGridLinesEnabled = false
+        chart.xAxis.drawAxisLineEnabled = false
         
-        self.lineChart.gridBackgroundColor = NSUIColor.white
-        self.lineChart.drawBordersEnabled = true
+        chart.leftAxis.drawLabelsEnabled = false
+        chart.leftAxis.drawGridLinesEnabled = false
         
+        chart.rightAxis.drawLabelsEnabled = false
+        chart.rightAxis.drawGridLinesEnabled = false
+    }
+    
+    // MARK: - PhotoEditingViewControllerDelegate
+    
+    func plotDataDidUpdate(in outputContext: OutputContext) {
+        let inputHistogram = LineChartData()
+        addHistogram(histogram: outputContext.inHistogram.r, for: inputHistogram, color: NSColor.red)
+        addHistogram(histogram: outputContext.inHistogram.g, for: inputHistogram, color: NSColor.green)
+        addHistogram(histogram: outputContext.inHistogram.b, for: inputHistogram, color: NSColor.blue)
+        self.inHistogramChart.data = inputHistogram
+        
+        let outputHistogram = LineChartData()
+        addHistogram(histogram: outputContext.outHistogram.r, for: outputHistogram, color: NSColor.red)
+        addHistogram(histogram: outputContext.outHistogram.g, for: outputHistogram, color: NSColor.green)
+        addHistogram(histogram: outputContext.outHistogram.b, for: outputHistogram, color: NSColor.blue)
+        self.outHistogramChart.data = outputHistogram
+        
+        // -----
+        
+        var transformEntriesRed = [ChartDataEntry]()
+        var transformEntriesGreen = [ChartDataEntry]()
+        var transformEntriesBlue = [ChartDataEntry]()
+        for i in stride(from: 0, to: outputContext.xs.r.count, by: 1) {
+            transformEntriesRed.append(ChartDataEntry(x: outputContext.xs.r[i], y: outputContext.ys[i]))
+            transformEntriesGreen.append(ChartDataEntry(x: outputContext.xs.g[i], y: outputContext.ys[i]))
+            transformEntriesBlue.append(ChartDataEntry(x: outputContext.xs.b[i], y: outputContext.ys[i]))
+        }
+        
+        let transformDataSetRed = LineChartDataSet(values: transformEntriesRed, label: "")
+        let transformDataSetGreen = LineChartDataSet(values: transformEntriesGreen, label: "")
+        let transformDataSetBlue = LineChartDataSet(values: transformEntriesBlue, label: "")
+        
+        transformDataSetRed.colors = [NSColor.red]
+        transformDataSetRed.drawValuesEnabled = false
+        transformDataSetRed.drawCirclesEnabled = false
+        transformDataSetGreen.colors = [NSColor.green]
+        transformDataSetGreen.drawValuesEnabled = false
+        transformDataSetGreen.drawCirclesEnabled = false
+        transformDataSetBlue.colors = [NSColor.blue]
+        transformDataSetBlue.drawValuesEnabled = false
+        transformDataSetBlue.drawCirclesEnabled = false
+        
+        let transformData = LineChartData()
+        transformData.addDataSet(transformDataSetRed)
+        transformData.addDataSet(transformDataSetGreen)
+        transformData.addDataSet(transformDataSetBlue)
+        
+        transformCurveChart.data = transformData
+    }
+    
+    func addHistogram(histogram: [UInt], for data: LineChartData, color: NSColor) {
+        let hist = histogram.map { Double($0) }
+        let histDataEntry = hist.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
+        
+        let redDataSet = LineChartDataSet(values: histDataEntry, label: "")
+        redDataSet.drawCirclesEnabled = false
+        redDataSet.colors = [color]
+        data.addDataSet(redDataSet)
     }
     
     // MARK: - IBActions

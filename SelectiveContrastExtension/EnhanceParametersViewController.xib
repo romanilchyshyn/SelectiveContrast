@@ -3,16 +3,19 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EnhanceParametersViewController" customModule="SelectiveContrastExtension" customModuleProvider="target">
             <connections>
+                <outlet property="inHistogramChart" destination="cHc-8F-Sbv" id="AyW-Ay-pmu"/>
                 <outlet property="lableN" destination="3Da-db-TL4" id="LS8-Z4-f9s"/>
                 <outlet property="lableSmax" destination="eFo-Fk-Rht" id="0IF-Hs-p7g"/>
-                <outlet property="lineChart" destination="k2w-d3-cLU" id="d1S-c0-wFU"/>
+                <outlet property="outHistogramChart" destination="Z1P-7I-uHs" id="5zr-dy-hwM"/>
                 <outlet property="sliderN" destination="hLb-J9-Auj" id="EyW-Mt-5H9"/>
                 <outlet property="sliderSmax" destination="lHn-Da-mvw" id="eTO-MN-H9k"/>
+                <outlet property="transformCurveChart" destination="TRs-WD-Csk" id="vnf-pC-aK7"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -23,11 +26,11 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="1ig-22-HLe">
-                    <rect key="frame" x="0.0" y="299" width="344" height="298"/>
+                    <rect key="frame" x="0.0" y="448" width="344" height="149"/>
                     <subviews>
                         <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hLb-J9-Auj">
                             <rect key="frame" x="18" y="43" width="308" height="24"/>
-                            <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="25" doubleValue="5" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="kKv-LE-dtY"/>
+                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="1" maxValue="25" doubleValue="5" tickMarkPosition="above" numberOfTickMarks="10" sliderType="linear" id="kKv-LE-dtY"/>
                             <connections>
                                 <action selector="sliderNAction:" target="-2" id="ybM-wA-m5H"/>
                             </connections>
@@ -50,7 +53,7 @@
                         </textField>
                         <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lHn-Da-mvw">
                             <rect key="frame" x="18" y="121" width="308" height="24"/>
-                            <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="3" tickMarkPosition="below" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="pmm-UB-a8o"/>
+                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="3" tickMarkPosition="below" numberOfTickMarks="10" sliderType="linear" id="pmm-UB-a8o"/>
                             <connections>
                                 <action selector="sliderSmaxAction:" target="-2" id="ZAZ-5t-ZCs"/>
                             </connections>
@@ -70,25 +73,41 @@
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lj6-mm-eI4">
-                    <rect key="frame" x="0.0" y="0.0" width="344" height="299"/>
+                    <rect key="frame" x="0.0" y="0.0" width="344" height="448"/>
                     <subviews>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="k2w-d3-cLU" customClass="LineChartView" customModule="Charts">
-                            <rect key="frame" x="72" y="75" width="200" height="150"/>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="TRs-WD-Csk" customClass="LineChartView" customModule="Charts">
+                            <rect key="frame" x="8" y="36" width="328" height="120"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="150" id="8qe-d9-zEM"/>
-                                <constraint firstAttribute="width" constant="200" id="YC1-Ii-U1B"/>
+                                <constraint firstAttribute="height" priority="999" constant="120" id="Ogf-9W-SDW"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="cHc-8F-Sbv" customClass="LineChartView" customModule="Charts">
+                            <rect key="frame" x="8" y="292" width="328" height="120"/>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Z1P-7I-uHs" customClass="LineChartView" customModule="Charts">
+                            <rect key="frame" x="8" y="164" width="328" height="120"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="120" id="A58-s1-e0r"/>
                             </constraints>
                         </customView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="k2w-d3-cLU" firstAttribute="centerY" secondItem="Lj6-mm-eI4" secondAttribute="centerY" id="yXn-Is-etb"/>
-                        <constraint firstItem="k2w-d3-cLU" firstAttribute="centerX" secondItem="Lj6-mm-eI4" secondAttribute="centerX" id="zzD-p2-BeI"/>
+                        <constraint firstItem="Z1P-7I-uHs" firstAttribute="top" secondItem="cHc-8F-Sbv" secondAttribute="bottom" constant="8" id="5fF-kq-bzY"/>
+                        <constraint firstItem="cHc-8F-Sbv" firstAttribute="centerX" secondItem="Lj6-mm-eI4" secondAttribute="centerX" id="D80-Ff-5J6"/>
+                        <constraint firstItem="TRs-WD-Csk" firstAttribute="top" secondItem="Z1P-7I-uHs" secondAttribute="bottom" constant="8" id="E46-tc-h3b"/>
+                        <constraint firstItem="TRs-WD-Csk" firstAttribute="width" secondItem="Z1P-7I-uHs" secondAttribute="width" id="Ffx-BU-0eU"/>
+                        <constraint firstItem="Z1P-7I-uHs" firstAttribute="centerY" secondItem="Lj6-mm-eI4" secondAttribute="centerY" id="VN8-Cg-Ahs"/>
+                        <constraint firstAttribute="trailing" secondItem="Z1P-7I-uHs" secondAttribute="trailing" constant="8" id="Wwq-FO-w7q"/>
+                        <constraint firstItem="Z1P-7I-uHs" firstAttribute="leading" secondItem="Lj6-mm-eI4" secondAttribute="leading" constant="8" id="h4O-3A-dDc"/>
+                        <constraint firstItem="TRs-WD-Csk" firstAttribute="centerX" secondItem="Lj6-mm-eI4" secondAttribute="centerX" id="j9t-4z-JgR"/>
+                        <constraint firstItem="cHc-8F-Sbv" firstAttribute="width" secondItem="Z1P-7I-uHs" secondAttribute="width" id="nK0-a3-in3"/>
+                        <constraint firstItem="cHc-8F-Sbv" firstAttribute="height" secondItem="Z1P-7I-uHs" secondAttribute="height" id="obW-eg-uuw"/>
                     </constraints>
                 </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="Lj6-mm-eI4" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="G1d-TY-yuX"/>
-                <constraint firstItem="1ig-22-HLe" firstAttribute="height" secondItem="Lj6-mm-eI4" secondAttribute="height" id="Kcm-Xa-wgG"/>
+                <constraint firstItem="1ig-22-HLe" firstAttribute="height" secondItem="Lj6-mm-eI4" secondAttribute="height" multiplier="0.333" id="Kcm-Xa-wgG"/>
                 <constraint firstItem="1ig-22-HLe" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="LQG-2Q-bto"/>
                 <constraint firstAttribute="bottom" secondItem="Lj6-mm-eI4" secondAttribute="bottom" id="P3P-lr-2X1"/>
                 <constraint firstAttribute="trailing" secondItem="1ig-22-HLe" secondAttribute="trailing" id="Sb7-jm-yeh"/>
@@ -96,7 +115,7 @@
                 <constraint firstItem="1ig-22-HLe" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="eab-7t-ZNK"/>
                 <constraint firstItem="Lj6-mm-eI4" firstAttribute="top" secondItem="1ig-22-HLe" secondAttribute="bottom" id="hf6-cB-Mfk"/>
             </constraints>
-            <point key="canvasLocation" x="-911" y="-107"/>
+            <point key="canvasLocation" x="-1372" y="-106"/>
         </customView>
     </objects>
 </document>
