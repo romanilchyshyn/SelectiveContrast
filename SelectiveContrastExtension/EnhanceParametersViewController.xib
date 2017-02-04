@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="lableN" destination="3Da-db-TL4" id="LS8-Z4-f9s"/>
                 <outlet property="lableSmax" destination="eFo-Fk-Rht" id="0IF-Hs-p7g"/>
+                <outlet property="lineChart" destination="k2w-d3-cLU" id="d1S-c0-wFU"/>
                 <outlet property="sliderN" destination="hLb-J9-Auj" id="EyW-Mt-5H9"/>
                 <outlet property="sliderSmax" destination="lHn-Da-mvw" id="eTO-MN-H9k"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -26,7 +27,7 @@
                     <subviews>
                         <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hLb-J9-Auj">
                             <rect key="frame" x="18" y="43" width="308" height="24"/>
-                            <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="5" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="kKv-LE-dtY"/>
+                            <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="25" doubleValue="5" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="kKv-LE-dtY"/>
                             <connections>
                                 <action selector="sliderNAction:" target="-2" id="ybM-wA-m5H"/>
                             </connections>
@@ -70,6 +71,19 @@
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lj6-mm-eI4">
                     <rect key="frame" x="0.0" y="0.0" width="344" height="299"/>
+                    <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="k2w-d3-cLU" customClass="LineChartView" customModule="Charts">
+                            <rect key="frame" x="72" y="75" width="200" height="150"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="8qe-d9-zEM"/>
+                                <constraint firstAttribute="width" constant="200" id="YC1-Ii-U1B"/>
+                            </constraints>
+                        </customView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="k2w-d3-cLU" firstAttribute="centerY" secondItem="Lj6-mm-eI4" secondAttribute="centerY" id="yXn-Is-etb"/>
+                        <constraint firstItem="k2w-d3-cLU" firstAttribute="centerX" secondItem="Lj6-mm-eI4" secondAttribute="centerX" id="zzD-p2-BeI"/>
+                    </constraints>
                 </customView>
             </subviews>
             <constraints>
@@ -82,7 +96,7 @@
                 <constraint firstItem="1ig-22-HLe" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="eab-7t-ZNK"/>
                 <constraint firstItem="Lj6-mm-eI4" firstAttribute="top" secondItem="1ig-22-HLe" secondAttribute="bottom" id="hf6-cB-Mfk"/>
             </constraints>
-            <point key="canvasLocation" x="-747" y="-78"/>
+            <point key="canvasLocation" x="-911" y="-107"/>
         </customView>
     </objects>
 </document>

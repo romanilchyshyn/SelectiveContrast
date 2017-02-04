@@ -26,13 +26,8 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
         didSet {
             inputOutputViewController.inputImage = inputImage
             outputImage = inputImage
-            if let inputImage = inputImage {
-                inputContext = PAEInputContext(image: inputImage)
-            }
         }
     }
-    
-    fileprivate var inputContext: PAEInputContext?
     
     fileprivate var outputImage: NSImage? {
         didSet {
@@ -66,11 +61,19 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
         tempSmax = smax
         tempN = N
         
-        let t1 = Date()
-        guard let inputContext = inputContext else { return }
-        outputImage = PiecewiseAffineHistogramEqualization.pae(with: inputContext, sMin: smin, sMax: smax, N: N)
-        let t2 = Date()
-        print("\(t2.timeIntervalSince1970 - t1.timeIntervalSince1970)")
+        guard let inputImage = inputImage else { return }
+        
+        DispatchQueue.global().async {
+            let t1 = Date()
+            let out = PiecewiseAffineHistogramEqualization.pae(with: inputImage, sMin: Double(smin), sMax: Double(smax), N: N)
+            let t2 = Date()
+            let time = "PAE timing: t2 - t1 = \(t2.timeIntervalSince1970 - t1.timeIntervalSince1970) seconds."
+            os_log("%@", time)
+            
+            DispatchQueue.main.async {
+                self.outputImage = out
+            }
+        }
     }
     
     // MARK: - Helpers
@@ -83,12 +86,11 @@ class PhotoEditingViewController: NSViewController, EnhanceParametersViewControl
         let orientedImageCI = inputImageCI.applyingOrientation(input.fullSizeImageOrientation)
         let orientedImageNS = NSImage(ciImage: orientedImageCI)
         
-        let orientedImageContext = PAEInputContext(image: orientedImageNS)
         guard let tempSmin = tempSmin, let tempSmax = tempSmax, let tempN = tempN else {
             completionHandler(nil)
             return
         }
-        let outputImageNS = PiecewiseAffineHistogramEqualization.pae(with: orientedImageContext, sMin: tempSmin, sMax: tempSmax, N: tempN)
+        let outputImageNS = PiecewiseAffineHistogramEqualization.pae(with: orientedImageNS, sMin: Double(tempSmin), sMax: Double(tempSmax), N: tempN)
 
         // MARK: Possible to do this with these lines
 //        let pngData = NSBitmapImageRep(cgImage: image.cgImage(forProposedRect: nil, context: nil, hints: nil)!)

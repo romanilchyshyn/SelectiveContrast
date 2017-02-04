@@ -28,24 +28,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        
-        let imageInPath = "/Users/romanilchyshyn/SelectiveContrastTests/image_in.png"
+        let imageInPath = "/Users/romanilchyshyn/SelectiveContrastTests/in.png"
+        let imageOutPath = "/Users/romanilchyshyn/SelectiveContrastTests/out.png"
         let imageInURL = URL(fileURLWithPath: imageInPath)
         
+        guard let input = NSImage(contentsOf: imageInURL) else { fatalError("No input image") }
+        let t1 = Date()
+        let output = PiecewiseAffineHistogramEqualization.pae(with: input, sMin: 0.0, sMax: 3.0, N: 5)
+        let t2 = Date()
+        write(image: output, to: imageOutPath)
         
-        guard let inputImage = NSImage(contentsOf: imageInURL) else { fatalError("No input image") }
-        
-        
-        var imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
-        imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
-        imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
-        imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
-        imageOut = SelectiveContrast.enhanceDark(inputImage, t: 0.0, a: 0.0)
-        
-        
-        let imageOutPath = "/Users/romanilchyshyn/SelectiveContrastTests/image_out0.png"
-        write(image: imageOut, to: imageOutPath)
-        
+        let time = "PAE timing: t2 - t1 = \(t2.timeIntervalSince1970 - t1.timeIntervalSince1970) seconds."
+        os_log("%@", time)
+
     }
     
 }
